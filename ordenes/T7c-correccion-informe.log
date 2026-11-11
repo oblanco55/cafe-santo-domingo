@@ -1,0 +1,3 @@
+Gateway shutting down: this turn was interrupted and will not be run again. Send your message again once Hermes is back.
+Operation interrupted: waiting for model response (58.3s elapsed).
+exit=130

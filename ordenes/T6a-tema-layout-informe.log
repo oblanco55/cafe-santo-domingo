@@ -1,0 +1,9 @@
+ORDEN T6a EJECUTADA — informe
+
+1. globals.css: bloque exacto de DISENO.md §2 (@theme con los 10 tokens + font-sans jakarta; sin --background ni prefers-color-scheme).
+2. layout.tsx: lang="es"; Plus Jakarta Sans (next/font/google, --font-jakarta, pesos 400–800) en lugar de Geist; metadata "Script 28 — De ideas a contenido" + descripción en español.
+3. src/components/ui/: Button (primary/secondary, loading → "Procesando…"), Card, Field (label+error con role=alert, ids para aria-describedby), Input, Textarea, Select (aria-invalid/borde danger), Segmented (aria-pressed, border-brand-orange al seleccionar), Logo (next/image /brand/logo-script28.png, ratio 1454×354), Icons (Video/Camera/Carousel/Copy/Check, SVG inline stroke currentColor), SiteHeader (server, auth()/signOut con redirectTo '/', sin sesión → enlace Iniciar sesión).
+4. Solo tokens de color; sin neutral-*/gray-*; focus-visible:ring-brand-orange y objetivos ≥44px en componentes.
+5. Verificación: tsc --noEmit OK; lint 0 errores (4 warnings preexistentes en tests); 92/92 tests OK; build OK (11 rutas).
+6. Commit 2425bc5 pushado a origin/main (incluye 3 archivos de ordenes preexistentes sin modificar: informe T6a vacío + órdenes T7/T8).
+exit=0

@@ -1,0 +1,4 @@
+The e2e is running in the background (proc_003f7362ee16). I'll wait for its completion notification before committing and pushing.
+
+E2E running en background; espero su resultado para continuar con commit + push.
+exit=0

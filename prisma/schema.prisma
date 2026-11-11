@@ -1,0 +1,253 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OfferType {
+  product
+  service
+}
+
+enum CreationType {
+  video
+  photo
+  carousel
+  avatar
+}
+
+enum CreationStatus {
+  ok
+  error
+}
+
+enum Role {
+  user
+  admin
+}
+
+enum AIProviderKind {
+  anthropic
+  openai_compatible
+}
+
+model User {
+  id            String           @id @default(cuid())
+  name          String
+  email         String           @unique
+  passwordHash  String
+  termsAcceptedAt DateTime
+  role          Role           @default(user)
+  active        Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  customerLead  CustomerLead?
+  businessProfile BusinessProfile?
+  creations     Creation[]
+  subscriptions Subscription[]
+  creditLedger  CreditLedger[]
+  payments      Payment[]
+}
+
+model CustomerLead {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  phone           String
+  favoriteProduct String?
+  marketingOptIn  Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BusinessProfile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  countryIso  String?
+  offerType   OfferType?
+  sector      String?
+  sectorOther String?
+  description String?
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model Creation {
+  id           String         @id @default(cuid())
+  userId       String
+  type         CreationType
+  input        Json
+  output       Json?
+  status       CreationStatus
+  errorMessage String?
+  model        String?
+  hiddenAt     DateTime?
+  parentId     String?
+  billingSource String?
+  createdAt    DateTime       @default(now())
+  user         User           @relation(fields: [userId], references: [id])
+  parent       Creation?      @relation("variants", fields: [parentId], references: [id])
+  variants     Creation[]     @relation("variants")
+
+  @@index([userId, createdAt])
+  @@index([parentId])
+}
+
+model AIProvider {
+  id        String         @id @default(cuid())
+  label     String
+  kind      AIProviderKind
+  baseUrl   String?
+  model     String
+  apiKeyEnc String?
+  enabled   Boolean        @default(true)
+  isDefault Boolean        @default(false)
+  priority  Int            @default(100)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model AppSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model LegalDocument {
+  slug      String   @id
+  title     String
+  content   String
+  version   Int      @default(1)
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model AdminAuditLog {
+  id        String   @id @default(cuid())
+  adminId   String
+  action    String
+  target    String?
+  detail    Json?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// ── F2-7 Monetización ─────────────────────────────────────────────
+
+enum BillingInterval {
+  month
+  year
+}
+
+enum SubscriptionStatus {
+  APPROVAL_PENDING
+  ACTIVE
+  SUSPENDED
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentKind {
+  credit_pack
+  subscription
+}
+
+enum PaymentStatus {
+  created
+  completed
+  refunded
+  failed
+}
+
+enum LedgerReason {
+  purchase
+  creation
+  admin_adjust
+  refund
+}
+
+model Plan {
+  id                 String          @id @default(cuid())
+  name               String
+  description        String?
+  priceCents         Int
+  currency           String          @default("USD")
+  interval           BillingInterval @default(month)
+  creationsPerPeriod Int?
+  paypalProductId    String?
+  paypalPlanId       String?         @unique
+  active             Boolean         @default(true)
+  sortOrder          Int             @default(0)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  subscriptions      Subscription[]
+}
+
+model CreditPack {
+  id         String   @id @default(cuid())
+  name       String
+  credits    Int
+  priceCents Int
+  currency   String   @default("USD")
+  active     Boolean  @default(true)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String
+  planId               String
+  paypalSubscriptionId String             @unique
+  status               SubscriptionStatus @default(APPROVAL_PENDING)
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  user                 User               @relation(fields: [userId], references: [id])
+  plan                 Plan               @relation(fields: [planId], references: [id])
+
+  @@index([userId])
+}
+
+model CreditLedger {
+  id        String       @id @default(cuid())
+  userId    String
+  delta     Int
+  reason    LedgerReason
+  refType   String?
+  refId     String?
+  createdAt DateTime     @default(now())
+  user      User         @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Payment {
+  id              String        @id @default(cuid())
+  userId          String
+  kind            PaymentKind
+  paypalOrderId   String?       @unique
+  paypalCaptureId String?       @unique
+  amountCents     Int
+  currency        String
+  status          PaymentStatus @default(created)
+  raw             Json?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  user            User          @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model PaymentEvent {
+  id          String   @id
+  type        String
+  payload     Json
+  processedAt DateTime @default(now())
+}

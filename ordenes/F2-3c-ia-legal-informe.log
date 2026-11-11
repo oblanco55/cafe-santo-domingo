@@ -1,0 +1,77 @@
+F2-3c IA LEGAL — INFORMATIVIDAD
+================================
+
+FECHA: 2026-05-24
+DESARROLLADOR: DESARROLLADOR BACKEND PRINCIPAL DE SCRIPT 28
+
+ARCHIVOS CREADOS (5)
+--------------------
+- src/app/api/admin/ai/presets/route.ts
+    GET  /api/admin/ai/presets
+    Admin. 200 { presets: [...PROVIDER_PRESETS from @/lib/ai/presets] }.
+    Requiere sesión admin (401 Unauthenticated / 403 Forbidden).
+
+- src/app/api/admin/ai/providers/route.ts
+    GET  /api/admin/ai/providers
+    Admin. 200 { providers: [...AIProviderView] } via listProviders().
+    Sin api_key en respuesta; lastTest (estado/latencia_ms) incluido.
+
+    POST /api/admin/ai/providers
+    Admin. 201 { provider: {...AIProviderView} }.
+    Cuerpo validado con aiproCreateSchema (src/lib/contracts/admin.ts).
+    api_key cifra con AES-256-GCM (src/lib/crypto.ts) y no se almacena en claro.
+    Cria AuditLog action 'ai.provider.create' con IP del cliente.
+
+- src/app/api/admin/ai/providers/[id]/route.ts
+    PATCH  /api/admin/ai/providers/:id
+    Admin. 200 { provider: {...AIProviderView} }.
+    Cuerpo validado con aiproUpdateSchema (campos opcionales: model, max_tokens, temperature, base_url, api_key).
+    Crea AuditLog action 'ai.provider.update'.
+
+    DELETE /api/admin/ai/providers/:id
+    Admin. 200 { providerId: '...' } (borrado lógico).
+    Crea AuditLog action 'ai.provider.delete'.
+
+- src/app/api/admin/ai/providers/[id]/test/route.ts
+    POST /api/admin/ai/providers/:id/test
+    Admin. 200 { success: bool, model?: string, latencyMs?: number }.
+    404 si el provider no existe. 500 con mensaje del error si la prueba falla.
+    Usa testProviderConnection(id) de src/lib/admin.ts.
+    Crea AuditLog action 'ai.provider.test'.
+
+- src/app/api/legal/[slug]/route.ts
+    GET /api/legal/:slug
+    Público (sin auth). 200 { title, content, version, updatedAt }.
+    404 si slug no es 'terminos' ni 'privacidad' (isLegalSlug).
+    Lee de la colección legal: de src/lib/audit.ts (getCollection 'legal').
+
+ARCHIVOS MODIFICADOS (0)
+------------------------
+Ningún archivo existente se modificó en esta iteración.
+Las 5 rutas nuevas son archivos nuevos.
+
+TESTS
+-----
+Suite completa: 20 archivos, 181 tests → 181 PASSED (0 failed).
+Duración: 2.98s.
+
+LINT
+----
+eslint: 0 errores, 2 warnings preexistentes (no son de los archivos nuevos).
+  - src/app/api/admin/legal/route.ts:24 → 'admin' unused (pre-existente)
+  - src/lib/ai/engine.ts:39 → 'getProvider' unused (pre-existente)
+
+BUILD
+-----
+npm run build → BUILD SUCCEEDED.
+Rutas nuevas visibles en el listado:
+  ├ ƒ /api/admin/ai/presets
+  ├ ƒ /api/admin/ai/providers
+  ├ ƒ /api/admin/ai/providers/[id]
+  ├ ƒ /api/admin/ai/providers/[id]/test
+  └ ƒ /api/legal/[slug]
+
+TYPECHECK
+---------
+npx tsc --noEmit → exit 0, sin errores.
+exit=0

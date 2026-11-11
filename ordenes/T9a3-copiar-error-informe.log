@@ -1,0 +1,37 @@
+ORDEN T9a3 — copiar + error (Informe)
+======================================
+
+Estado: TODO PASA
+
+Resultados e2e (Playwright, 4 workers, chromium-desktop + chromium-mobile):
+  32 passed (49.3s)
+
+Detalle de los 3 tests T9a3:
+  ✓ copiar: guía y copy van por separado al portapapeles
+  ✓ error de la API + Reintentar conserva las respuestas
+  ✓ Crear otro tras un resultado vuelve al formulario con el país precargado
+
+Causa raíz de los fallos previos (T7, T9, T9a2):
+  El rate-limit del backend (src/lib/rate-limit.ts) cuenta 10 intentos por
+  IP / 10 minutos. En local TODOS los tests comparten la IP 'unknown' (sin
+  proxy, rateLimitKey fallback). La suite desktop tiene 8 tests que registran
+  → el 11° intento recibe 429 ("Demasiados intentos. Vuelve a intentarlo en
+  unos minutos."), y los tests posteriores del spec caen en "Received string
+  http://localhost:3000/registro". Los tests T9a3 pasaban solo porque eran
+  los primeros de la corrida.
+
+Fix aplicado:
+  tests/e2e/helpers.ts: registerNewUser() ahora envía
+  page.setExtraHTTPHeaders({ "x-forwarded-for": 10.0.0.(único por test) })
+  ANTES de navegar a /registro. El backend YA soporta x-forwarded-for
+  (src/lib/rate-limit.ts:48), así que cada test tiene su propio bucket de
+  rate-limit y la suite completa (8 registros) pasa sin tocar el límite.
+
+  Consecuencia: NO se cambia la seguridad de producción (10/10min intacto),
+  NO se añade un bypass test-only en src/, y el fix vive en tests/ donde
+  pertenece (el test finge una IP que un proxy real le asignaría).
+
+Files:
+  C tests/e2e/validacion-copiar-error.spec.ts (nuevo, 3 tests)
+  M tests/e2e/helpers.ts (x-forwarded-for por test)
+exit=0

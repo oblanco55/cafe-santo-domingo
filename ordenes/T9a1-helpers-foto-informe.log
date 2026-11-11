@@ -1,0 +1,12 @@
+T9a1 ejecutada y enviada. Informe:
+
+1. `tests/e2e/helpers.ts` creado con `registerNewUser(page)` y `fillCommon(page, offerType)` (MX, gastronomia, descripción ≥20c, Instagram).
+
+2. `tests/e2e/validacion-foto.spec.ts` creado: test (a) foto 1:1 Producto → bloques "Resumen creativo", "Iluminación", "Verificación", "Copy para publicar" presentes; test (b) foto 9:16 Servicio → label del textarea contiene "servicio" + resultado visible.
+
+3. **4/4 tests pasaron** (chromium-desktop + chromium-mobile).
+
+4. **Bug de app detectado** (no lo arreglé, lo reporto): en `CreationForm.tsx:240` el array `aspectOptions` hardcodea el prefijo `1:1` para todos los formatos, así que el botón 9:16 aparece como **"Vertical Story 1:1 (1080×1920)"** en vez de "Vertical Story 9:16 (1080×1920)". El test lo rodea con selector por dimensiones.
+
+5. Commit d084c8c push a origin/main. Nota: `git add ordenes` arrastró 2 artefactos extras (borró `T9.done`, creó `T9a1-helpers-foto-informe.log`) que estaban como untracked en el repo.
+exit=0

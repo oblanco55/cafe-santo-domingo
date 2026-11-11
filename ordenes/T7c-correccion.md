@@ -1,0 +1,6 @@
+# ORDEN T7c — Corregir mapeo de modalidad y tests (perfil: desarrollador-frontend). Breve; informe máx. 8 líneas. Si falla 2 veces, DETENTE.
+Claude verificó (E2E reales): /crear/carrusel y /crear/foto muestran el formulario de VIDEO. Causa en src/app/crear/[type]/page.tsx: compara el parámetro de URL con "video"|"photo"|"carousel" y cae a "video" por defecto. Las URLs reales (panel) son /crear/video, /crear/foto, /crear/carrusel.
+1. En page.tsx crea `const SLUG_TO_TYPE = { video: 'video', foto: 'photo', carrusel: 'carousel' } as const;` y úsalo en CreationPage y en generateMetadata. Slug desconocido → `notFound()` (import de 'next/navigation'), NUNCA "video" por defecto.
+2. tests/e2e/crear.spec.ts: cada test debe ser independiente (pueden correr en paralelo): extrae una función registerNewUser(page) que registre un correo único por test (Date.now()+random) y llegue a /panel; úsala en ambos tests y elimina signIn() compartido. Añade un test: GET /crear/xyz → status 404.
+3. npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npm run test:e2e (TODOS deben pasar, desktop y mobile).
+4. OBLIGATORIO: git add -A (sin .env) && git commit -m "feat(T7): formularios contextuales por modalidad" && git push origin main.

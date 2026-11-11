@@ -1,0 +1,23 @@
+T9c completada. Resumen de lo ejecutado:
+
+**Corrección 1 – Label de aspecto 9:16 (src/components/creation/CreationForm.tsx)**
+Removido el prefijo hardcodeado "1:1" en `aspectOptions` (se usaba para todos los formatos). Eliminado `aspectOptions916` duplicado. El botón de 9:16 ahora aparece como "Vertical Story 9:16 (1080×1920)" en lugar de "Vertical Story 1:1 (1080×1920)". Selector `getByRole("button", { name: "Vertical Story 9:16" })` funciona en validacion-foto.spec.ts.
+
+**Corrección 2 – Rate limit key (src/lib/rate-limit.ts)**
+`rateLimitKey` ahora usa el ÚLTIMO valor no vacío de `x-forwarded-for` (el proxy añade la IP real al final; el cliente puede prefijar valores falsos). Si no hay cabecera, usa `x-real-ip`; si no, "unknown". Se creó `tests/api/rate-limit-key.test.ts` con 4 tests cubriendo: último valor, fallback a x-real-ip, fallback a "unknown", y valores vacíos intermedios.
+
+**Corrección 3 – Test E2E video (tests/e2e/validacion-carrusel-video.spec.ts)**
+Aclarado: el test de video 15/30/45 s ya usa `goModality(page, "Guion de video")` (botón correcto del panel) y no el botón deshabilitado "Video". Sin cambios adicionales necesarios.
+
+**Corrección 4 – Rate limit en tests E2E (auth, crear, foto, carrusel-video, copiar-error, seguridad)**
+Añadido `test.beforeEach` con `page.setExtraHTTPHeaders({ "x-forwarded-for": fwdIp })` en cada spec (rangos 10.0.1.x–10.0.7.x) para aislar el bucket de rate-limit por test. Esto resuelve el fallo masivo en la suite completa (42 tests fallando por agotamiento del bucket de 10 req/10min/IP).
+
+**Verificación final:**
+- tsc --noEmit: ✓ sin errores
+- eslint: 0 errores (5 warnings preexistentes)
+- vitest: 13 archivos / 111 tests — todos pasan
+- npm run build: ✓ Compiled successfully
+- playwright test: 42/42 passed (53.4s, desktop + mobile)
+
+**Push:** `c093306..[commit]` → `main` en `github.com/oblanco55/script28.git`
+exit=0exit=0

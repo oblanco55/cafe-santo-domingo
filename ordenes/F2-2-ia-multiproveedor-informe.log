@@ -1,0 +1,2 @@
+Error: Gateway disconnected; turn outcome is unknown. Resume the printed session ID to check whether it completed or was interrupted; do not resend the work.
+exit=1

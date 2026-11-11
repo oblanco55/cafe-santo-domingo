@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #FC762F;
+  --color-brand-coral: #FC4F37;
+  --color-brand-fuchsia: #F81151;
+  --color-ink: #070B14;
+  --color-night: #0E1830;
+  --color-mist: #D9DCE3;
+  --color-muted: #9AA3B5;
+  --color-danger: #FF8FA3;
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+body { background: var(--color-ink); color: #fff; }
+
+/* ─── Documento legal (términos / privacidad) ─────────────────────────── */
+.legal-body h1,
+.legal-body h2,
+.legal-body h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.legal-body h1 { font-size: 1.25rem; color: #fff; }
+.legal-body h2 { font-size: 1.1rem; color: #fff; }
+.legal-body h3 { font-size: 1rem; color: #fff; }
+
+.legal-body p { margin: 0.5em 0; }
+
+.legal-body ul,
+.legal-body ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+.legal-body li { margin: 0.25em 0; }
+
+.legal-body ul { list-style: disc; }
+.legal-body ol { list-style: decimal; }
+
+.legal-body a {
+  color: var(--color-brand-orange);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal-body a:hover { color: var(--color-brand-coral); }
+
+.legal-body em { font-style: italic; color: var(--color-mist); }
+.legal-body strong { font-weight: 700; color: #fff; }
+
+.legal-body blockquote {
+  border-left: 3px solid var(--color-brand-orange);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.legal-body code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+.legal-body pre {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.legal-body pre code { background: transparent; padding: 0; }
+
+.legal-body hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 2em 0;
+}

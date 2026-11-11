@@ -1,0 +1,22 @@
+Lista la orden T9. Resumen de lo ejecutado:
+
+**1. npm run lint** → 0 errores, 4 warnings preexistentes. Exit 0.
+
+**2. npm run test** → 107/107 unit tests pasando. Exit 0.
+
+**3. npm run build** → Build OK. Exit 0.
+
+**4. API checks** (servidor limpio):
+- `GET /api/creations/item/fake-id` sin sesión → 401 UNAUTHORIZED
+- `POST /api/auth/register` válido → 201
+- `POST /api/auth/register` duplicado → 409
+
+**5. npx playwright test** → 10/10 tests pasando (chromium-desktop + chromium-mobile).
+
+**Correcciones aplicadas:**
+- `CreationScreen.tsx`: se sustituyó la vista provisional de JSON crudo (T7) por `<ResultView>` (T8) en el estado success, pasando `type`, `output`, `onCreateAnother` y `onEdit`.
+- `tests/e2e/crear.spec.ts`: el selector `h2` con filtro `·` se corrigió a `h2` de cabecera (que muestra `Guía de <tipo>: <sector>` sin punto medio).
+
+**Commit:** `aac492a T9: validación E2E — 10/10 tests pasando`
+**Push:** completado a `https://github.com/oblanco55/script28.git` (main).
+exit=0

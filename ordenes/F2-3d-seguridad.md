@@ -1,0 +1,9 @@
+# ORDEN F2-3d — Correcciones de la revisión de seguridad (perfil: desarrollador-backend). Breve; un archivo por llamada; informe máx. 8 líneas. Si un paso falla 2 veces, DETENTE.
+HECHOS VERIFICADOS POR CLAUDE (lectura de código y producción):
+1. [ALTA] src/lib/contracts/admin.ts línea ~9: `LEGAL_SLUGS = ['terms', 'privacy']`, pero la BD, la semilla (prisma/seed.ts) y las páginas usan 'terminos' y 'privacidad'. En producción GET /api/legal/terminos → 404 aunque el documento existe (la semilla lo creó). Cambia LEGAL_SLUGS a ['terminos', 'privacidad'] y ajusta todo lo que use 'terms'/'privacy' (grep -rn "'terms'\|'privacy'\|\"terms\"\|\"privacy\"" src tests).
+2. [MEDIA] Un usuario desactivado conserva su sesión JWT hasta que caduca: `active` solo se comprueba en authorize (src/auth.ts). En requireUser() y requireAdmin() (src/lib/session.ts) consulta db.user (id, role, active) y si no existe o active=false → UnauthenticatedError (401). Usa ese role de BD (no el del token) para requireAdmin, así un cambio de rol surte efecto inmediato.
+3. [BAJA] src/lib/admin.ts línea ~126: `maskSecret(row.apiKeyEnc)` enmascara el texto CIFRADO. Debe ser `maskSecret(decryptSecret(row.apiKeyEnc))` (con try/catch → '••••' si no se puede descifrar).
+4. [BAJA] src/lib/admin.ts usa AIError (7 veces) para errores que no son de IA. Crea una clase AdminError(status, code, message) en src/lib/admin-errors.ts y úsala; las rutas deben mapear su status (404 no encontrado, 400 validación).
+5. Tests: GET /api/legal/terminos → 200 con la semilla; requireUser con usuario desactivado → 401; requireAdmin tras quitar el rol en BD → 403; máscara = últimos 4 de la clave real.
+6. npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npm run test:e2e.
+7. OBLIGATORIO: git add -A (sin .env) && git commit -m "fix(F2-3d): slugs legales, sesión de usuarios desactivados y máscara de claves" && git push origin main.

@@ -1,0 +1,6 @@
+custom returned a server error on all 3 attempts — it looks temporarily unavailable. Wait a minute and send /retry, or switch models with /model. To avoid this in future, add a backup provider with `hermes fallback add`.
+
+Provider said: HTTP 500: no user query found in messages
+
+This turn did not complete. Some actions may already have run; verify their effects before resending.
+exit=2

@@ -1,0 +1,9 @@
+# ORDEN T4c — Motor generateCreation (perfil: especializado-en-inteligencia-artificial)
+Contexto: ordenes/T4-motor-ia.md puntos 3 y 4. Ya existen src/lib/ai/{errors,provider,anthropic,mock,index}.ts y prompts/. REGLAS: breve, un archivo por llamada, solo src/lib/ai/engine.ts y tests/ai/engine.test.ts. Si un paso falla 2 veces, DETENTE.
+engine.ts: export async function generateCreation(type: 'video'|'photo'|'carousel', rawInput: unknown, provider = getProvider()): Promise<{ output; model; input }>.
+1. Valida rawInput con el esquema de entrada; si falla → AIError VALIDATION con fieldErrors (z.flattenError(err).fieldErrors en zod v4).
+2. outSchema: photo → photoOutputSchema; carousel → carouselOutputFor(input.slideCount); video → videoOutputFor(input.duration). jsonSchema = z.toJSONSchema(outSchema, { target: 'draft-7', io: 'output', unrepresentable: 'any' }).
+3. user = wrapUserData(input) + instrucción final "Devuelve el resultado llamando a la herramienta entregar_resultado.". toolName 'entregar_resultado'. maxTokens según T4 punto 3.
+4. Llama provider.generate (pasa también hint {type,input} para el mock). Valida data con outSchema. Si falla: 1 reintento con user + "\n\nTu respuesta anterior no cumplió el esquema. Errores: "+ resumen de issues (path: message, máx 10). Si vuelve a fallar → AIError AI_FAILED "No pudimos generar un resultado válido. Intenta de nuevo.".
+5. Tests (tests/ai/engine.test.ts) con proveedores falsos (objetos que implementan AIProvider): los 6 casos de T4 punto 4 (válido 3 modalidades con mock; carrusel 3/5/7; reintento 4→5 láminas; AI_FAILED tras 2 inválidas; VALIDATION con input inválido; el user prompt contiene <datos_usuario>).
+Verifica: npx tsc --noEmit ; npm run lint ; npm test ; npm run build. Commit "feat(T4): motor de IA por modalidad con validación y reintento" + push. Informe máx. 8 líneas.

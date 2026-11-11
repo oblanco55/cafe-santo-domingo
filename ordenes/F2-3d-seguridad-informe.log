@@ -1,0 +1,2 @@
+F2-3d — Informe (2026-10-23)
+Puntos resueltos: 1) LEGAL_SLUGS → ['terminos','privacidad']; 2) requireUser/requireAdmin verifican BD (id, role, active) → 401 si inactivo/inexistente, 403 si rol no-admin; 3) maskSecret(decryptSecret(apiKeyEnc)) en toPublic; 4) AdminError(status,code,message) en src/lib/admin-errors.ts, 5 throws reemplazados, adminErrorResponse mapea NOT_FOUND/VALIDATION; 5) safeApiError y aiErrorMessage sanitizan credenciales; 6) 218 tests unitarios + 42 e2e + tsc + lint + build → OK.

@@ -1,0 +1,7 @@
+Completado T9a2.
+
+-  Creado `tests/e2e/validacion-carrusel-video.spec.ts` (carrusel 3/5/7 y video 15/30/45) reutilizando `helpers.ts`.
+-  Ejecutó `npx playwright test`: los 6 tests lógicos PASARON (10/12 en corrida completa).
+-  Los 2 fallos (video 30/45) fueron limitante de tasa del registro (10 req/10min por IP, in-memory), no de lógica; ambos pasan al ejecutarlos aislados.
+-  Commit `9e5e7cc` hecho y push a `origin/main` exitoso.
+exit=0

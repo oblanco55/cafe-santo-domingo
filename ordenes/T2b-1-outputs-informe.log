@@ -1,0 +1,8 @@
+Informe final (T2b-1):
+
+1. inputs.ts ajustado: duración y contaje de láminas ahora usan `z.union([z.literal(...)])` con valores numéricos.
+2. outputs.ts creado con baseOutput, photoOutputSchema, slideSchema, carouselOutputFor(n), sceneSchema, videoOutputFor(dur); 181 líneas.
+3. `npx tsc --noEmit` pasa sin errores (exit 0).
+4. Los helpers genericos tipificados `CarouselOutputSchema<S>` y `VideoOutputSchema<D>` están exportados para uso futuro.
+5. No se tocaron auth, UI ni IA. Sin problemas detectados.
+exit=0

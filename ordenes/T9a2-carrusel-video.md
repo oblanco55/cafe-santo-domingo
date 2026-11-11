@@ -1,0 +1,5 @@
+# ORDEN T9a2 — Tests carrusel 3/5/7 y video 15/30/45 (perfil: desarrollador-frontend). Breve; informe máx. 6 líneas. Si falla 2 veces, DETENTE.
+HECHOS: tests/e2e/helpers.ts existe (registerNewUser, fillCommon). La pantalla de resultado (ResultView) muestra cada lámina con el texto "Lámina N" y cada escena del video con su rango de tiempo (p. ej. "36–45 s"). Ejecuta `ls tests/e2e` primero.
+1. tests/e2e/validacion-carrusel-video.spec.ts: for (const n of [3,5,7]) test(`carrusel ${n}`) → /crear/carrusel, fillCommon, elegir n y 1:1, generar → `await expect(page.getByText(/^Lámina \d/)).toHaveCount(n)` (ajusta el selector al texto real, verifícalo con el navegador de Playwright). for (const d of [15,30,45]) test(`video ${d}`) → /crear/video, fillCommon, elegir "{d} s", "Generar guion" → la página contiene `${d} s`.
+2. npx playwright test tests/e2e/validacion-carrusel-video.spec.ts.
+3. OBLIGATORIO: git add tests/e2e ordenes && git commit -m "test(T9): validación carrusel 3/5/7 y video 15/30/45" && git push origin main.

@@ -1,0 +1,8 @@
+Informe — orden T3a3:
+
+- 1. middleware.ts → `runtime: 'nodejs'` añadido ✓
+- 2. auth.ts → `import { db }` reemplaza `getDb()`, comentario actualizado ✓
+- 3. register/route.ts → `import { db }`, `getDb()` eliminada ✓
+- 4. tsc: OK · lint: OK · test: 42/42 OK · build: OK (5/5 pages, next 15.5)
+- 5. commit 1d856b3 → push origin main ✓ (18 files, 585 insertions, .env no aparece)
+exit=0

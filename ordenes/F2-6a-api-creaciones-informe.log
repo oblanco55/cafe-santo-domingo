@@ -1,0 +1,49 @@
+# F2-6 — Usuario — Informe de ejecución
+
+## Scope
+Endpoints para mis creaciones, ocultar y regenerar (F2-6a):
+- `GET /api/creations` (nueva): lista paginada + filtro `type`.
+- `GET /api/creations/item/[id]` (amplia a incluir `parentId`).
+- `DELETE /api/creations/item/[id]` (nueva, soft delete con `hiddenAt`).
+- `POST /api/creations/item/[id]/regenerate` (nueva).
+
+## Cambios aplicados
+- `src/app/api/creations/route.ts` (nueva)
+- `src/app/api/creations/item/[id]/route.ts` (ampliada: GET con `parentId`, DELETE soft-delete)
+- `src/app/api/creations/item/[id]/regenerate/route.ts` (nueva)
+- `tests/api/creaciones-f2-6.test.ts` (nuevo, 14 tests)
+- `tests/api/creations.test.ts` (ajustado: `hiddenAt` ya es criterio de "oculta")
+
+## Verificación (evidencia real)
+- `npx tsc --noEmit` → 0 errores.
+- `npm run lint` → 0 errores, 9 warnings (preexistentes, fuera de scope).
+- `npm run test` (vitest) → **266/266 tests passed** (25 archivos).
+  - `tests/api/creaciones-f2-6.test.ts` → 14/14.
+  - `tests/api/creations.test.ts` → 9/9 (con ajuste del mock al nuevo criterio `hiddenAt=null`).
+- `npm run build` → exitoso. Rutas compiladas (de `next build`):
+  - `ƒ /api/creations`
+  - `ƒ /api/creations/[type]`
+  - `ƒ /api/creations/item/[id]`
+  - `ƒ /api/creations/item/[id]/regenerate`
+
+## Decisión
+- Soft delete en BD es `hiddenAt` (campo nullable existente en `Creation`). No creé
+  columnas nuevas: la orden manda reutilizar y no duplicar modelos. Filtro "no ocultas"
+  = `hiddenAt = null` (en `where`) más una doble garantía en código (`!creation ||
+  creation.hiddenAt !== null → 404`).
+- `type` en listing: valores inválidos → se ignoran (no error), para no romper clientes
+  antiguos. `page` < 1 o no numérico → 1.
+- El test "oculta → 404" de mi suite verifica `where: { id, userId, hiddenAt: null }`
+  (la cláusula real) — más fuerte que solo el estado.
+- `regenerate` reutiliza `generateCreation` y el flujo de `billing` (429 → 402 → 200
+  con `parentId` y `billingSource`) manteniendo a la creación padre intacta. Se marca
+  `status: 'error'` + `errorMessage` al fallback; NO consume ni genera cargo.
+
+## Restricciones
+- `next build` requiere `DATABASE_URL` (usada por `prisma generate` en el prebuild).
+  Se asume `.env` local ya configurado (el build lo pasó en este entorno).
+- No se añadieron columnas nuevas: `hiddenAt` cumple con el criterio de trazabilidad
+  de la orden (quién cuándo se ocultó, por soft delete; el `createdAt` original se
+  conserva).
+</file>
+</invoke>

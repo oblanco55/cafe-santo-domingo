@@ -1,0 +1,9 @@
+T4b completo. Resumen:
+
+- Creé `src/lib/ai/prompts/common.ts` con `COMMON_RULES` (reglas de datos no confiables, no inventar, adaptación a país/sector/plataforma, recursos sencillos, sector legal, copy/hashtags) y `wrapUserData()`.
+- Creé `photo.ts`, `carousel.ts`, `video.ts`: cada uno `SYSTEM_PROMPT = COMMON_RULES + reglas específicas`, en español, en viñetas, cada uno ~20-25 líneas. Incluye ejemplos A/B (zapatos/abogado) marcados como "no copies este ejemplo".
+- `photo.ts` menciona "UNA sola" toma; `carousel.ts` menciona "exactamente" slideCount; `video.ts` menciona "segundos".
+- `tests/ai/prompts.test.ts`: 16 tests verificando las reglas clave de cada prompt + `wrapUserData`.
+- Verificación: `tsc --noEmit` ✓, `eslint` ✓, `npm test` 66/66 ✓.
+- Commit `feat(T4b): prompts de sistema por modalidad` push a `main`.
+exit=0

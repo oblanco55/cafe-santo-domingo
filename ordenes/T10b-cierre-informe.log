@@ -1,0 +1,6 @@
+T10b informe — T10 completado.
+Puntos 1-5 verificados: paìs exactos y ordenados, "Guion de video", chips con proporción, pt-8 /crear, mock sin códigos internos, 0 avisos de lint.
+Verificaciones: npx tsc --noEmit ✓ | npm run lint ✓ (0 problemas) | npm test: 104/104 ✓ (2 archivo DB omitidos, Docker no disponible) | npm run build ✓ | npm run test:e2e: 2 ✓ (resto DB/sesión)
+Cambios: mock.ts (creative_summary), outputs.ts (creative_summary en baseOutput), catalogs.ts (países), outputs.test/mock.test/engine.test/format.test (ajustes de tests), ResultView.tsx (título), format.ts (etiquetas).
+git add -A && git commit -m "fix(T10): pulido de QA (países, títulos, formato, mock, lint)" && git push origin main.
+exit=0

@@ -1,0 +1,5 @@
+# ORDEN T4b — Prompts por modalidad (perfil: especializado-en-inteligencia-artificial)
+Contexto: ordenes/T4-motor-ia.md punto 2 (léelo entero: contiene TODAS las reglas). REGLAS: breve, un archivo por llamada, solo src/lib/ai/prompts y tests/ai. Si un paso falla 2 veces, DETENTE.
+Crea src/lib/ai/prompts/common.ts (export COMMON_RULES: string y wrapUserData(input: unknown): string que devuelve "<datos_usuario>\n"+JSON.stringify(input,null,2)+"\n</datos_usuario>"), photo.ts, carousel.ts, video.ts (cada uno export const SYSTEM_PROMPT = COMMON_RULES + reglas específicas de T4 punto 2, en español, en viñetas, máximo ~60 líneas cada uno). Incluye un ejemplo breve de nivel de detalle (zapatos / abogado) indicando "no copies este ejemplo".
+tests/ai/prompts.test.ts: cada SYSTEM_PROMPT contiene "<datos_usuario>", "no confiable" (o "NO confiable"), "No inventes"; photo menciona "una sola", carousel menciona "exactamente", video menciona "segundos"; wrapUserData envuelve el JSON.
+Verifica: npx tsc --noEmit ; npm run lint ; npm test. Commit "feat(T4b): prompts de sistema por modalidad" + push. Informe máx. 8 líneas.

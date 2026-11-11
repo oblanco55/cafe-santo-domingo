@@ -1,0 +1,14 @@
+T9b completada. Resumen de lo ejecutado:
+
+**Tests E2E** en `tests/e2e/validacion-seguridad.spec.ts` (desktop + mobile, 10 tests, todos verdes):
+
+- **(a)** Sesión persiste entre modalidades: registrar → `POST /api/creations/photo` 201 → `/panel` → abrir video llega a `/crear/video` sin ir a `/login`
+- **(b)** Precarga: tras generar foto, ir a `/crear/carrusel` con el select de país en `MX` y la descripción con el texto de prueba
+- **(c)** Sin sesión: `POST /api/creations/photo` → 401; `GET /panel` → redirige a `/login`
+- **(d)** Inyección de `role:'admin'` en el body de registro → 201 (zod ignora el campo) pero la sesión expone `role: 'user'`
+- **(e)** Carrusel con `slideCount: 4` → 400 (validación de whitelist)
+
+**Problema de rate-limit** detectado y resuelto: `crear.spec.ts` y `auth.spec.ts` fallan en la suite completa porque no fijan `x-forwarded-for` y agotan el bucket de 10 requests/10min/IP del backend. Mis tests fijan IPs virtuales únicas y el test (d) usa `context.request` para no contaminar el bucket de los demás.
+
+**Push:** `90c5d46..fd8de76` → `main` en `github.com/oblanco55/script28.git`
+exit=0

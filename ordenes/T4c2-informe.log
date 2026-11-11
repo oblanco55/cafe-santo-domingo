@@ -1,0 +1,5 @@
+ORDEN T4c2 ejecutada: cerré el error tipado en `src/lib/ai/engine.ts` usando el resultado ya validado del esquema (`validateInput` devuelve `CreationInput`; `outSchemaFor` tipado con la unión de esquemas), sin tocar lógica ni tests.
+`npx tsc --noEmit` pasó con 0 errores; `npm run lint` OK (solo warnings ya existentes); `npm test` OK con 72/72 tests; `npm run build` OK.
+Hice `git add src/lib/ai tests/ai ordenes` y `git commit -m "feat(T4): motor de IA por modalidad con validación y reintento"`, commit `306d155`.
+`git push origin main` completó desde local a GitHub.
+exit=0

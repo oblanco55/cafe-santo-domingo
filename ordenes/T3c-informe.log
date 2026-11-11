@@ -1,0 +1,12 @@
+```
+T3c completado — commit 7fa1409 en main, push OK.
+
+1. schema.prisma: enum Role {user admin} + User.role @default(user) — migrado y aplicado en BD docker:5433.
+2. src/auth.ts: role en SELECT, authorize, callback jwt (token.role) y callback session (session.user.role ?? 'user').
+3. next-auth.d.ts: role en Session.user, User y JWT.
+4. contracts/api.ts: 'FORBIDDEN' agregado al union ApiErrorCode.
+5. session.ts: ForbiddenError (403, "No tienes permisos para esta acción.") + requireAdmin() que lanza si role ≠ 'admin'.
+6. tests/api/t3c-role.test.ts: 4 tests — registro con role:'admin' en body → BD queda 'user'; requireAdmin user→403 / admin→ok / sin sesión→401.
+7. Verificaciones: tsc --noEmit ✓ | eslint ✓ (0 errores) | vitest 76/76 ✓ | next build ✓.
+```
+exit=0

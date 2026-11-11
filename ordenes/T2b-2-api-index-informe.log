@@ -1,0 +1,9 @@
+TSC y lint pasaron sin errores (solo 4 warnings preexistentes en inputs.ts/outputs.ts, que son archivos de la tarea anterior T2 y no debo modificar por la orden actual).
+
+Informe T2b-2 (5 líneas):
+- Creado src/lib/contracts/api.ts con CreationType, CreateCreationRequest, CreateCreationResponse y ApiError
+- Creado src/lib/contracts/index.ts que reexporta catalogs, inputs, outputs, api
+- npx tsc --noEmit: exit 0, sin errores
+- npm run lint: exit 0, 0 errors, 4 warnings preexistentes (no introducidos por esta orden)
+- Archivos T2b-2 completos, lista para T2b-3
+exit=0

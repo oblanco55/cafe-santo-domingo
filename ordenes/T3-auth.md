@@ -1,0 +1,14 @@
+# ORDEN T3 — Autenticación (perfil: autenticaci-n-y-gesti-n-de-usuarios)
+Ordena: Claude (cerebro). Ejecuta: Hermes. Lee PLAN.md y src/lib/contracts (T2). Directorio: /Users/omar/Desktop/Claude/Script 28. No toques IA ni formularios de creación.
+
+1. Auth.js v5 (next-auth@beta) en src/auth.ts: provider Credentials (email+contraseña), verificación con bcryptjs contra User.passwordHash vía Prisma (src/lib/db.ts), estrategia de sesión JWT (cookie httpOnly, secure en producción), callbacks que pongan user.id y name en la sesión. Ruta src/app/api/auth/[...nextauth]/route.ts. Usa AUTH_SECRET del entorno; trustHost: true (Railway está detrás de proxy).
+2. src/lib/contracts/auth.ts (zod): registerSchema { name 2–80, email válido normalizado a minúsculas, password 8–72 con al menos una letra y un número, acceptTerms literal true } y loginSchema. Mensajes en español.
+3. POST /api/auth/register (src/app/api/auth/register/route.ts — asegúrate de que no colisione con [...nextauth]; si colisiona, usa /api/register): valida con zod, email único (409 con mensaje "Ya existe una cuenta con este correo"), hash bcrypt coste 12, guarda termsAcceptedAt, responde 201 sin datos sensibles. Formato de error ApiError de src/lib/contracts/api.ts. Rate limit simple en memoria por IP (10 intentos/10 min) para register y login.
+4. Server actions o handlers para login/logout listos para usar desde la UI: export de signIn/signOut/auth desde src/auth.ts.
+5. Protección: middleware.ts que redirija a /login las rutas /panel y /crear/* si no hay sesión, y devuelva 401 JSON en /api/creations/* y /api/profile. Si el usuario con sesión visita /login o /registro, redirigir a /panel.
+6. Helper src/lib/session.ts: requireUser() para route handlers (devuelve user o lanza 401 ApiError).
+7. Páginas mínimas funcionales (estilo simple; la UI fina es T6): /registro (nombre, correo, contraseña, checkbox "Acepto los términos y la política de privacidad" con enlaces a /terminos y /privacidad), /login, /terminos y /privacidad con texto PROVISIONAL claramente marcado "Texto pendiente de aprobación legal", /panel con "Hola, {nombre}" y botón Cerrar sesión. Formularios con errores por campo en español y estado de carga.
+8. Tests Vitest: registerSchema; handler register (email duplicado → 409, válido → 201, hash ≠ contraseña) contra la BD de docker (usa una BD de test o limpia los registros creados). Test e2e Playwright tests/e2e/auth.spec.ts: registrar → llega a /panel → recargar sigue con sesión → cerrar sesión → /panel redirige a /login → login funciona.
+
+Verificación obligatoria (salida real): npm run lint, npx tsc --noEmit, npm test, npm run build, npx playwright install chromium && npm run test:e2e (con npm run dev o start levantado por playwright webServer).
+Commit "feat(T3): registro, login, sesión y protección de rutas" y git push origin main. Informe con resultados reales; no ocultes fallos.

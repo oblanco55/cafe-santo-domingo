@@ -1,0 +1,5 @@
+T7d ejecutada:
+1. Test "slug desconocido" de `tests/e2e/crear.spec.ts` ahora usa `page` + `registerNewUser(page)` y `page.goto('/crear/xyz')` expecting 404.
+2. Verificado: `test:e2e` → 8/8 passed; `tsc --noEmit` → OK; `npm test` → 92/92 passed (11 archivos).
+3. Commit `70fde24` "feat(T7): formularios contextuales por modalidad" (13 archivos, .env excluido por .gitignore) y push a `main` exitoso (72f2922→70fde24). T7 cerrado.
+exit=0

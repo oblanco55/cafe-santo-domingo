@@ -1,0 +1,8 @@
+# T4a — Proveedores de IA (2026-10-22)
+
+- src/lib/ai/: errors.ts, provider.ts, anthropic.ts, mock.ts, index.ts.
+- buildMockOutput(type, input) valida contra photo (1:1/9:16), carousel (3/5/7) y video (15/30/45).
+- Verificado: npx tsc --noEmit OK · npm run lint OK · npm test 50/50 OK · npm run build OK.
+- Commit 96d9557 "feat(T4a): proveedores de IA anthropic y mock" push origin/main.
+- Pendiente T4b (prompts) y T4c (engine + tests de reintento) según T4-motor-ia.md.
+exit=0

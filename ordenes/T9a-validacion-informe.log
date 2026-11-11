@@ -1,0 +1,16 @@
+Listo. Orden T9a ejecutada y enviada.
+
+**Resultado: `EN_BLOQUEO`** — T9 no puede iniciar porque T8 no está implementada.
+
+Hallazgos de la validación:
+
+- `npx vitest run` → 12 ficheros, 107/107 tests pasan, pero `tests/creation/format.test.ts` no existe (lo afirma el informe T8, línea 21).
+- `grep -rn "guideToText\|copyToText" src/ tests/` → 0 resultados.
+- `src/components/creation/format.ts` no existe.
+- `src/components/creation/ResultView.tsx` no existe.
+- Los componentes de resultado que sí están (`PhotoResult.tsx`, `CarouselResult.tsx`, `VideoResult.tsx`) son los de T3, no la vista estructurada de T8.
+
+El informe T8 (`informes/T8-resultado.md`) describe `format.ts`, `ResultView.tsx` y `format.test.ts` como creados/modificados, pero ninguno de esos archivos está en el proyecto. Los puntos 1, 2 y 6 de la orden T9a no son verificables; los puntos 3, 4 y 5 dependen del flujo de T8 que no existe.
+
+Commit `8b7c497` (informe `informes/T9a-validacion.md`) pushado a `main` de `oblanco55/script28`. Siguiente paso: implementar T8 (format.ts, ResultView.tsx, tests de formato e integración en CreationScreen) y luego revalidar T9a.
+exit=0

@@ -1,0 +1,61 @@
+# INFORME — Orden T10c (pendientes)
+
+Fecha: 2026-07-21 · Perfil: frontend (Script 28, Next 15.5.28 + Tailwind 4)
+
+## Cambios aplicados (4 puntos de la orden)
+
+### 1. Títulos por tipo — `src/lib/ai/mock.ts` (líneas 55–76)
+- Añadido `TITLE_NOUN: Record<MockType, string>` junto a `TYPE_LABEL`:
+  - `video → "Guion de video"`
+  - `photo → "Guía de fotografía"`
+  - `carousel → "Guía de carrusel"`
+- `title` ahora es `` `${TITLE_NOUN[type]}: ${sectorName(input)}` ``. Antes, para foto,
+  se generaba el texto inválido "Guía de foto: …".
+- `TYPE_LABEL` se conserva (sigue usándose en `base()` para el slug de tipo);
+  `TITLE_NOUN` solo alimenta el título visible.
+
+### 2. Estilo fotográfico — `src/lib/ai/mock.ts` (`photoOutput`, líneas 104–115)
+- Importado `PHOTO_STYLES` de `@/lib/contracts`.
+- `creative_summary` ahora:
+  - `style === 'ia_recomienda'` (default) → se omite la frase de estilo por completo.
+  - Otros valores → `con estilo ${PHOTO_STYLES[style]}` (label legible del contrato,
+    p. ej. "Producto solo", nunca la clave cruda `producto_solo`).
+- No se tocó otra salida ni el contrato: solo la frase interna del campo existente.
+
+### 3. Espaciado tras header — `src/app/crear/[type]/page.tsx` (línea 68)
+- Contenedor principal: `pt-24 sm:pt-28` → `pt-8 sm:px-6 sm:pt-10`.
+- La miga de pan queda pegada al header sin el hueco grande; los formularios de
+  foto/carrusel/video usan la misma página, así que los tres quedan uniformes.
+
+### 4. Etiqueta de relación con el formato — VERIFICADO (sin cambio)
+- `src/lib/ai/mock.ts` (`aspectLabel`) y `src/lib/validation.ts` ya producen
+  "Cuadrada 1:1" / "Vertical Story 9:16" (label + ratio del contrato ASPECT_RATIOS).
+  Se confirma que NO se mostraba el ratio suelto.
+
+## Archivos modificados
+| Archivo | Cambios |
+|---|---|
+| `src/lib/ai/mock.ts` | +`TITLE_NOUN`, import `PHOTO_STYLES`, `title` por modalidad, `creative_summary` estilo |
+| `src/app/crear/[type]/page.tsx` | padding superior reducido tras el header |
+| `tests/ai/mock.test.ts` | +4 tests de regresión (títulos ×3, estilo omitido/explícito) |
+
+## Tests agregados (tests/ai/mock.test.ts)
+- `photo`: título exacto "Guía de fotografía: Moda" (no "Guía de foto").
+- `photo`: `creative_summary` sin "con estilo" ni "ia_recomienda" con el default.
+- `photo`: `creative_summary` contiene "con estilo Producto solo" (label, no clave)
+  con `photoStyle: 'producto_solo'`.
+- `carousel`: título exacto "Guía de carrusel: Moda".
+- `video`: título exacto "Guion de video: Moda" (no "Guía de video").
+
+## Verificación ejecutada (todas verdes)
+- `npx tsc --noEmit` → OK, sin errores.
+- `npm run lint` (eslint) → OK, sin avisos.
+- `npm test` (vitest) → 17 archivos / 138 tests passed (antes 133; +5 nuevos).
+- `npm run build` (Next 15) → compiló, 11/11 páginas generadas.
+- `npm run test:e2e` (Playwright, desktop + mobile) → 42/42 passed (57 s),
+  incluida `validacion-foto.spec.ts` que consumió la salida nueva sin romperse.
+
+## Sin inventar
+- No se creó endpoint, contrato, campo ni modelo nuevo: solo 2 constantes de texto
+  y una frase interna de `creative_summary` ya existente.
+exit=0

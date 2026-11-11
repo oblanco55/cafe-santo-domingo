@@ -1,0 +1,20 @@
+ORDEN T1c EJECUTADA. Informe de cierre:
+
+1. BD: npm run db:up OK (contenedor script28-db, healthy). npx prisma migrate status: "Database schema is up to date!" (1 migracion: init).
+
+2. .gitignore: agregada /src/generated/. Verificado con git check-ignore tanto .env como src/generated/ estan ignorados. Build confirmado OK (punto 5).
+
+3. README.md: texto de create-next-app reemplazado por pasos reales en espanol (requisitos Node 20+ y Docker, npm i, cp .env.example .env + AUTH_SECRET con openssl rand -base64 32, db:up, db:migrate, dev, test) + tabla de scripts de npm.
+
+4. page.tsx: placeholder simple (bg-neutral-950, "SCRIPT 28" y "De ideas a contenido"), sin next/image. public/ ya estaba vacio (svgs de ejemplo no presentes, nada que borrar).
+
+5. Comprobaciones (salidas reales):
+   - npm run lint: exit 0, sin errores
+   - npx tsc --noEmit: exit 0
+   - npm test: 1 archivo, 2/2 tests passed (Vitest 5.0.5)
+   - npm run build: Next.js 15.5.28, compilacion OK, 5 paginas generadas, ruta "/" estatica
+
+6. Git: .env y src/generated NO aparecen en status ni en el staged. Commit faa4660 "feat(T1): scaffolding Next.js, Prisma, Docker, tooling" (29 archivos). Push OK: d2ebaee..faa4660 main -> main (github.com/oblanco55/script28).
+
+Notas: un aviso inofensivo de Vite (configLoader nativo en vitest.config.ts); no requiere accion. T1 cerrada y publicada.
+exit=0

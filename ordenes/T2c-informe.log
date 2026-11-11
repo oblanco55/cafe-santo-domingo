@@ -1,0 +1,8 @@
+**Informe T2c (máx 10 líneas):**
+
+1. **Diagnóstico real:** Los cambios de fixture (objective `'promocion'`, sin `sectorOther: null`) y de `.nullish()` ya estaban aplicados; el fallo real era `z.enum([15,30,45])` — zod v4 no acepta enteros en `.enum()`.
+2. **Corrección:** `duration` y `slideCount` → `z.union([z.literal(15), z.literal(30), z.literal(45)])` / `z.union([z.literal(3), z.literal(5), z.literal(7)])` con mensaje en español.
+3. **Warnings de lint:** `tests/contracts/inputs.test.ts:94` (`_objective`) → `_`; `outputs.ts:103/164` (`S`/`D`) → `_S`/`_D`; regla `no-unused-vars` con `varsIgnorePattern: "^_"` en `eslint.config.mjs`.
+4. **Verificación:** `npm test` ✓ 27/27 · `tsc --noEmit` ✓ · `lint` ✓ 0 warnings · `build` ✓.
+5. **Commit:** `81d33a7 feat(T2): contratos zod de entrada/salida y catálogos` — 19 archivos, 1024 líneas, push OK a `main`.
+exit=0

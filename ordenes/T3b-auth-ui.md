@@ -1,0 +1,14 @@
+# ORDEN T3b — Páginas de auth y E2E (perfil: autenticaci-n-y-gesti-n-de-usuarios)
+REGLAS: sé breve; un archivo por llamada. NO toques src/auth.ts, src/middleware.ts, src/lib/db.ts, next.config.ts ni las rutas /api (backend YA verificado por Claude). Si un paso falla 2 veces, DETENTE y reporta el error exacto.
+Backend disponible: POST /api/auth/register {name,email,password,acceptTerms} → 201 {ok:true} | 400/409 {error:{message,fieldErrors?}}. Login/logout: usa signIn/signOut de next-auth/react (SessionProvider en layout) o server actions con signIn('credentials',{email,password,redirect:false}) desde '@/auth'. Middleware ya redirige /panel→/login sin sesión y /login,/registro→/panel con sesión.
+Estilo: fondo neutral-950, texto claro, acento degradado #ff8a00→#ff2d75 en botones primarios, tarjetas neutral-900 con borde neutral-800, rounded-2xl, móvil primero (max-w-md centrado), labels visibles, errores por campo en rojo bajo el input, botón deshabilitado + texto "Procesando…" durante el envío. Logo de texto "SCRIPT 28" (28 con el degradado).
+Crea:
+1. src/app/registro/page.tsx (client): nombre, correo, contraseña (ayuda: mínimo 8, una letra y un número), checkbox términos con enlaces /terminos y /privacidad. Tras 201 → signIn automático con las mismas credenciales → router.push('/panel'). Enlace "¿Ya tienes cuenta? Inicia sesión".
+2. src/app/login/page.tsx (client): correo, contraseña; error genérico "Correo o contraseña incorrectos". Éxito → /panel. Enlace a /registro.
+3. src/app/terminos/page.tsx y src/app/privacidad/page.tsx: aviso visible "Texto provisional pendiente de aprobación legal" + 3 párrafos genéricos.
+4. src/app/panel/page.tsx (server): obtiene sesión con auth(); "Hola, {nombre}" y "¿Qué deseas crear hoy?" con 3 tarjetas enlazadas: Guion de video (/crear/video), Fotografía (/crear/foto), Carrusel (/crear/carrusel) — descripciones breves según la imagen de referencia. Botón "Cerrar sesión" (server action signOut → /).
+5. src/app/page.tsx: landing mínima con titular "Tus ideas merecen un gran guion.", subtítulo "Crea guiones para videos, fotografías y carruseles con una guía paso a paso.", botones "Empieza a crear" (/registro) e "Iniciar sesión" (/login).
+6. tests/e2e/auth.spec.ts (Playwright): registrar correo único → llega a /panel y ve "Hola" → recarga y sigue en /panel → cerrar sesión → /panel redirige a /login → login con la misma cuenta → /panel. playwright.config.ts debe tener webServer (npm run build && npm start en puerto 3000, reuseExistingServer true).
+7. Verifica: npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npx playwright install chromium ; npm run test:e2e.
+8. git add -A (sin .env) && git commit -m "feat(T3b): páginas de registro, login, panel y E2E de auth" && git push origin main.
+Informe máx. 10 líneas con resultados reales.

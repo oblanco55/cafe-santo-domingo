@@ -1,0 +1,22 @@
+Listo. T8 ejecutado, commitado y pushado.
+
+**Resultado:**
+- **107 tests** (antes 92, +15 nuevos) — todos pasando
+- **0 errores** de lint
+- **Commit:** `960da28` → push a `origin/main`
+
+**Lo que se construyó:**
+
+`format.ts` (nuevo)
+- `guideToText(type, output)` — texto plano estructurado. Foto: 8 bloques numerados. Carrusel: configuración general + ficha por lámina. Video: escenas con tiempo/plano/acción/narración/texto. Sin caption, CTA ni hashtags.
+- `copyToText(output)` — solo caption + CTA + hashtags. Total separado de la guía.
+
+`ResultView.tsx` (modificado)
+- Cabecera: título, concepto, chips de plataforma/formato
+- Guía específica por tipo (no JSON)
+- Bloque de copy aparte
+- 4 botones: Copiar guía, Copiar copy, Editar, Crear otro
+- Feedback "Copiado ✓" con `aria-live`
+
+**Pendiente:** E2E Playwright corriendo contra el mock (requiere navegador, no se ejecutó en esta sesión).
+exit=0

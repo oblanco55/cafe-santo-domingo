@@ -1,0 +1,8 @@
+# ORDEN T6b — Rediseño de páginas existentes (perfil: desarrollador-frontend)
+LEE docs/DISENO.md. Usa SOLO los componentes de src/components/ui (T6a). REGLAS: breve, un archivo por llamada; no cambies la lógica (fetch, signIn, redirecciones) de registro/login/panel, solo la presentación. Si un paso falla 2 veces, DETENTE.
+1. src/app/page.tsx (landing): SiteHeader; hero con eyebrow "IDEAS SIN LÍMITES" (tracking amplio, text-mist), titular "Tus ideas merecen un " + "gran guion." con degradado en texto, subtítulo, botones "Crear mi primer guion" (primario → /registro) y "Iniciar sesión" (secundario → /login); debajo 3 tarjetas (Video/Fotografía/Carrusel) con iconos y los textos de DISENO.md §4; sección "Cómo funciona" con 3 pasos: 1 Elige formato, 2 Define tu idea, 3 Recibe tu guía.
+2. src/app/registro/page.tsx y src/app/login/page.tsx: Logo arriba (height 36), Card, Field/Input/Button; checkbox de términos con foco visible. Mantén los mismos name/label de los inputs (los tests E2E los usan).
+3. src/app/panel/page.tsx: SiteHeader; "Hola, {nombre}" + "¿Qué deseas crear hoy?"; 3 tarjetas-enlace con VideoIcon/CameraIcon/CarouselIcon en cuadro con degradado (icono en text-ink), textos de DISENO.md §4 ("lámina", nunca "slide"); hover border-brand-orange; grid 1 col móvil / 3 col ≥ md.
+4. src/app/terminos y privacidad: SiteHeader + Card; aviso provisional en text-warning.
+5. Verifica: npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npm run test:e2e (los 2 E2E de auth deben seguir pasando; si un selector cambió, ajusta el test, no la accesibilidad).
+6. git add -A && git commit -m "feat(T6b): landing, auth y panel con el diseño oficial" && git push origin main. Informe máx. 8 líneas.

@@ -1,0 +1,11 @@
+Informe T3b
+- Creadas: src/app/registro/page.tsx, src/app/login/page.tsx, src/app/panel/page.tsx, src/app/page.tsx, src/app/terminos/page.tsx, src/app/privacidad/page.tsx
+- E2E: tests/e2e/auth.spec.ts (Playwright, chromium-desktop + chromium-mobile)
+- playwright.config.ts: webServer = npm run build && npm start (puerto 3000, reuseExistingServer: true)
+- npx tsc --noEmit: OK
+- npm run lint: OK
+- npm test (vitest): 42 passed
+- npm run build: OK (10 rutas generadas)
+- npm run test:e2e: 2 passed en 38.9s
+- git push origin main: aff6b06 (8 archivos, 513 insertiones)
+exit=0

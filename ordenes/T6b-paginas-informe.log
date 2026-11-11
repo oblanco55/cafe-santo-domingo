@@ -1,0 +1,21 @@
+T6b ejecutada y verificada.
+
+Cambios: rediseñé `src/app/page.tsx`, `registro`, `login`, `panel`, `terminos` y `privacidad` usando los componentes nuevos; añadí validación local en registro; corregí `Field` para que las etiquetas sean accesibles desde `getByLabel()`.
+
+Verificación real:
+- `npx tsc --noEmit`: OK
+- `npm run lint`: 0 errores, solo 4 warnings preexistentes en `tests/ai/engine.test.ts`
+- `npm test`: 11 test files, 92/92 tests OK
+- `npm run build`: OK, 11 rutas
+- `npm run test:e2e`: Chromium desktop y mobile, 2/2 tests OK
+- Chequeos estáticos: 0 referencias a `neutral-*`/`gray-*` en `src`
+
+El informe está en:
+`/Users/omar/Desktop/Claude/Script 28/ordenes/T6b-paginas-informe.log`
+ tarjetas modales con Icon y enlaces a /crear/*; SiteHeader.
+5. src/app/terminos/page.tsx y src/app/privacidad/page.tsx: páginas legales en español con banner provisional y enlaces cruzados desde /registro.
+6. src/components/ui/Field.tsx: etiqueta convertida a <label htmlFor> para que getByLabel() resuelva en e2e.
+7. Verificación final: src sin neutral-*/gray-*; tsc --noEmit OK; lint 0 errores (4 warnings preexistentes en tests/ai/engine.test.ts); 92/92 tests unitarios OK; build OK; Playwright desktop+mobile: 2/2 pruebas OK.
+8. No se creó global-error.tsx (no existe en el proyecto y la orden T6b no lo pide).
+9. Estado git: página terminos/privacidad/registro/login/panel/home/Field modificados; no se creó commit porque no lo pediste.
+exit=0

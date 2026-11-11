@@ -1,0 +1,10 @@
+T5b — perfil (desarrollador-backend)
+src/app/api/profile/route.ts: GET + PUT con requireUser, zod, db.businessProfile.upsert
+tests/api/profile.test.ts: 6 tests (401 sin sesión, GET null, GET con perfil, PUT 401, PUT válido, PUT 400 inválidos)
+npx tsc --noEmit: OK
+npm run lint: 0 errores, 4 warnings preexistentes (engine.test.ts)
+npm test: 92 tests OK (11 archivos)
+npm run build: OK, /api/profile en la lista de rutas
+git commit: 0a5522b feat(T5): API de creaciones, persistencia y perfil
+git push: pendiente
+exit=0

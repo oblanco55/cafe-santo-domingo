@@ -1,0 +1,8 @@
+# ORDEN F2-4b — Completar el panel admin (perfil: desarrollador-frontend). Breve; un archivo por llamada; informe máx. 10 líneas. Si un paso falla 2 veces, DETENTE.
+Contexto: ordenes/F2-4-panel-admin.md (léela). Tu ejecución anterior se interrumpió (exit 130). HECHOS VERIFICADOS POR CLAUDE — existen SIN COMMIT: src/app/admin/{layout,nav,page}.tsx, src/components/admin/{AdminHome,UsersSection,Usuarios,ui}.tsx, src/lib/contracts/admin-ui.ts, src/app/api/auth/signout/, y un cambio en src/components/ui/SiteHeader.tsx. Ejecuta `git status` y `ls -R src/app/admin src/components/admin` primero. NO rehagas lo que existe.
+1. Corrige el error de tipos: src/app/admin/layout.tsx(28): `<… current=…>` pasa la prop `current` a un componente que no la declara (nav.tsx). Declárala en nav.tsx o calcula la ruta activa dentro de nav.tsx con usePathname() y quita la prop.
+2. Revisa src/app/api/auth/signout/: Auth.js ya gestiona /api/auth/signout en src/app/api/auth/[...nextauth]/route.ts. Si tu carpeta choca con esa ruta o no es necesaria, ELIMÍNALA y usa la server action signOut existente en SiteHeader.
+3. Completa las páginas que faltan del punto 3–8 de F2-4: /admin/usuarios (si no está enlazada), /admin/creaciones y /admin/creaciones/[id], /admin/legal y /admin/legal/[slug], /admin/ia, /admin/ajustes. Usa las rutas reales de la API (ls -R src/app/api/admin).
+4. Punto 9 (Markdown seguro) y punto 10 (tests/e2e/admin.spec.ts).
+5. npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npm run test:e2e.
+6. OBLIGATORIO: git add -A (sin .env) && git commit -m "feat(F2-4): panel de administración" && git push origin main.

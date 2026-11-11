@@ -1,0 +1,34 @@
+Listo. Orden F2-5 ejecutada y empujada a `main`.
+
+**Commit `60ad022`** — 11 archivos, 794 líneas insertadas, 114 eliminadas.
+
+**Lo que se construyó**
+
+Pipeline de renderizado Markdown seguro en servidor:
+- `marked` → parsing Markdown a HTML
+- `DOMPurify` + `jsdom` → sanitización (elimina `<script>`, iframes, event handlers)
+- Cache de una instancia `jsdom` por proceso
+
+`renderMarkdownSafe(md: string): string` en `src/lib/markdown.ts`.
+
+`src/components/legal/LegalPage.tsx` — Server Component que:
+- Lee `LegalDocument` de BD por `slug` (`terminos` / `privacidad`)
+- Llamar `notFound()` si no existe
+- Inyecta HTML sanitizeado con `dangerouslySetInnerHTML`
+- Muestra "Última actualización" (fecha `es-ES`) y versión
+- Enlace para volver al inicio
+
+`/terminos` y `/privacidad` ahora llaman a `LegalPage` con `force-dynamic` — los cambios que admin haga en la BD se reflejan sin deploy.
+
+Estilos `.legal-body` en `globals.css` (headings, listas, enlaces, código, citas).
+
+8 tests unitarios que verifican sanitización (script eliminado, event handlers eliminados, iframes eliminados, acentos preservados).
+
+**Verificado**
+- TypeScript: sin errores
+- ESLint: 0 errors (9 warnings preexistentes)
+- Tests: 44 de 44 pasan (8 nuevos + 36 existentes)
+- Build de Next.js: exitoso
+
+Push: `b7a42bb..60ad022` → `origin/main`.
+exit=0

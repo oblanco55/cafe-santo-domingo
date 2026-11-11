@@ -1,0 +1,4 @@
+# ORDEN T10b — Cerrar T10 (perfil: desarrollador-frontend). Breve; informe máx. 8 líneas. Si un paso falla 2 veces, DETENTE.
+Contexto: ordenes/T10-pulido-qa.md. Tu ejecución anterior se cortó y dejó SIN COMMIT cambios en: ResultView.tsx, format.ts, mock.ts, catalogs.ts, outputs.ts y 3 tests. Ejecuta `git diff --stat` primero. NO rehagas lo que ya está; completa lo que falte de los puntos 1–5 de T10 (compruébalo uno por uno: países exactos y ordenados por código, "Guion de video", chips con proporción, pt-8 en /crear, mock sin códigos internos, 0 avisos de lint).
+Luego: npx tsc --noEmit ; npm run lint (0 problemas) ; npm test ; npm run build ; npm run test:e2e.
+OBLIGATORIO: git add -A (sin .env) && git commit -m "fix(T10): pulido de QA (países, títulos, formato, mock, lint)" && git push origin main.

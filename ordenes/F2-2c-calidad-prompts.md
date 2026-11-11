@@ -1,0 +1,23 @@
+# ORDEN F2-2c — Calidad de los prompts para la IA real (perfil: especializado-en-inteligencia-artificial)
+Breve; un archivo por llamada; informe máx. 10 líneas. Si un paso falla 2 veces, DETENTE. No cambies los esquemas de salida (src/lib/contracts/outputs.ts) ni la API.
+HECHOS VERIFICADOS POR CLAUDE: prompts en src/lib/ai/prompts/{common,photo,carousel,video}.ts (110 líneas en total); engine.ts construye el mensaje con `wrapUserData(input)` (línea ~241) enviando el input con CÓDIGOS (countryIso "DO", sector "servicios_profesionales", photoStyle "ia_recomienda", objective "promocion", resources [...]). Catálogos con etiquetas en src/lib/contracts/catalogs.ts.
+Revisión de Claude contra las especificaciones (Script28_Modulo_Fotografia_*.docx) — corrige estas carencias:
+
+1. Entrada legible: crea src/lib/ai/humanize.ts → humanizeInput(type, input) que devuelve un objeto con etiquetas en español: pais ("República Dominicana"), que_promociona ("Producto"/"Servicio"), sector (etiqueta; si "otro" usa sectorOther), descripcion, plataforma ("Instagram"…), objetivo (etiqueta), equipo (etiqueta o "No indicado"), recursos (etiquetas o "Ninguno indicado"), y los específicos (formato "Cuadrada 1:1 (1080×1080)" / "Vertical Story 9:16 (1080×1920)", tipo_de_foto, numero_de_laminas, estructura, duracion "30 segundos"). Si un valor es "ia_recomienda" → "Elige tú la mejor opción y justifícala". engine.ts: wrapUserData(humanizeInput(type, input)) — el input ORIGINAL se sigue guardando igual.
+2. common.ts — añade:
+   - IDIOMA: responde siempre en español del país indicado (vocabulario y trato: "tú" en Latinoamérica; en España tuteo peninsular). Sin anglicismos innecesarios.
+   - COPY POR PLATAFORMA:
+     - Instagram: primera línea gancho (≤ 125 caracteres), cuerpo breve, CTA, 3–8 hashtags relevantes al final.
+     - Facebook: 1–3 párrafos cortos, tono conversacional, CTA, 0–3 hashtags.
+     - TikTok: texto muy breve (≤ 150 caracteres) con gancho, 3–5 hashtags.
+     - YouTube: título atractivo ≤ 70 caracteres en la primera línea + descripción breve con CTA; hashtags 0–3.
+   - OBJETIVO ("¿Qué deseas destacar?"): presentación → qué es y para quién; beneficio → un beneficio real dicho por el usuario (si no hay, condicional en assumptions); promoción → NUNCA inventes la oferta: usa un marcador visible "[indica aquí tu promoción y vigencia]"; confianza → proceso, cercanía, prueba visual sin testimonios inventados; educativo → enseña un tip útil relacionado.
+   - TÍTULO Y CONCEPTO: title concreto y específico del negocio (≤ 60 caracteres, nunca genérico tipo "Guía de foto: Moda"); concept = la idea creativa en 1–2 frases.
+   - PROHIBIDO lo genérico: frases como "foto bonita", "buena iluminación", "algo llamativo" sin especificar cómo.
+3. photo.ts: mapea tipo_de_foto (producto solo / en uso / persona ofreciendo servicio / espacio o instalación) a decisiones concretas de encuadre; si es servicio y no hay persona disponible (recursos sin "modelo/persona"), propone alternativa sin persona (manos, herramientas, espacio).
+4. carousel.ts: en cada lámina, `purpose` debe incluir la función narrativa Y la transición hacia la siguiente ("…y conecta con la lámina N+1 mostrando …"); explica cada estructura (presentación, beneficios, paso a paso, problema y solución) en 1 línea; overlay_text sin repetir el mismo texto en dos láminas.
+5. video.ts: incluye en action o narration una sugerencia de audio/música genérica (sin nombrar canciones con derechos); para YouTube indica que el formato vertical corresponde a Shorts.
+6. Banco de evaluación: tests/ai/fixtures/golden-inputs.ts con 6 entradas (zapatos producto foto 1:1 Instagram; abogado servicio foto 9:16 Instagram; carrusel 5 zapatos presentación; carrusel 3 restaurante promoción; video 15 s belleza TikTok; video 45 s educación YouTube). Script scripts/eval-ia.ts (`npm run eval:ia`) que, con el proveedor configurado (BD o entorno), genera las 6 y guarda cada salida en eval-out/<fecha>/<caso>.json + un resumen .md (título, número de láminas/escenas, longitud del copy, hashtags, assumptions). eval-out/ en .gitignore. Con AI_PROVIDER=mock debe funcionar sin clave.
+7. Tests Vitest: humanizeInput produce etiquetas (DO → "República Dominicana", ia_recomienda → frase de elección); el system prompt contiene las reglas por plataforma y la regla de promoción con el marcador; el mensaje enviado al proveedor NO contiene "servicios_profesionales" ni "ia_recomienda".
+8. npx tsc --noEmit ; npm run lint ; npm test ; npm run build ; npm run eval:ia (con mock).
+9. OBLIGATORIO: git add -A (sin .env) && git commit -m "feat(F2-2c): prompts con entrada legible, copy por plataforma, objetivo y banco de evaluación" && git push origin main.

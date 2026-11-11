@@ -1,0 +1,60 @@
+# Orden F2-1 ejecutada y cerrada
+
+**Commit**: `a431cc8` — `feat(F2-1): datos y seguridad Fase 2 (schema, cifrado, ADMIN_EMAILS)`
+**Push**: `origin/main` → `a431cc8ae651243a7a572e133e51412a2b426f92` (verificado con `git fetch origin main` + `rev-parse` local vs remoto).
+
+## Escopo cumplido
+
+1. **Modelo de datos (aditivo)** — `prisma/schema.prisma`:
+   - `enum AIProviderKind { anthropic, openai_compatible }`
+   - `User.active Boolean @default(true)` (cuentas desactivadas no loguean)
+   - `Creation.hiddenAt DateTime?` y `Creation.parentId / parent / variants` (relación self-ref para variaciones) + índice
+   - 4 modelos nuevos: `AIProvider`, `AppSetting`, `LegalDocument`, `AdminAuditLog`
+   - Migración `fase2_admin` generada y aplicada; no se rompen modelos existentes.
+
+2. **Cifrado AES-256-GCM** — `src/lib/crypto.ts`:
+   - `encryptSecret(plain)` → `v1:<iv b64>:<tag b64>:<data b64>` (IV 12B GCM, tag 16B, clave 32B)
+   - `decryptSecret(ciphertext)` — verifica versión, longitud de IV/tag, autenticación GCM. La clave se resuelve **antes** de parsear el formato.
+   - `maskSecret(plain)` → `"••••" + últimos 4` (para UI sin exponer)
+   - Clave desde `SETTINGS_ENCRYPTION_KEY` (base64 de 32 bytes), nunca en BD ni logs.
+
+3. **ADMIN_EMAILS** — `src/lib/admin-emails.ts`:
+   - `isAdminEmail(email)` (case-insensitive, trim)
+   - `resolveRegisterRole(email)` (regreso `'admin'` si la lista contiene el email, `'user'` si no)
+   - Registro (`src/app/api/auth/register/route.ts`): el campo `role` del cliente se **ignora** — el servidor decide.
+   - Login (`src/auth.ts`): `active === false` → `null` (rechazo); si email ∈ `ADMIN_EMAILS` y BD dice `'user'` → se promueve **idempotentemente** a `'admin'` y se persiste.
+
+4. **Seed idempotente** — `prisma/seed.ts` + `prisma.config.ts` (`migrations.seed`):
+   - `LegalDocument.terminos` y `LegalDocument.privacidad` con texto provisional (version=1, updatedBy='seed').
+   - Ejecutado 2× en BD local: la segunda vez solo informa "ya existe" (verificado en Postgres).
+
+## Verificación
+
+| Check | Estado |
+|---|---|
+| `npx tsc --noEmit` | ✓ sin errores |
+| `npm run lint` (eslint .) | ✓ 0 errores / 0 warnings |
+| `npm test` (vitest) | ✓ **17 archivos / 133 tests green** (incluye los 22 nuevos de F2-1) |
+| `npm run build` | ✓ (Next.js static+dynamic, 11 páginas) |
+| `npx prisma db seed` ×2 | ✓ idempotente (verificado en BD) |
+| `git status` | ✓ limpio, working tree clean |
+| `.env` | NO está en el commit (verificado con `git diff --cached --name-only` y `git check-ignore`) |
+
+## Tests nuevos de Fase 2 (22)
+
+- `tests/crypto.test.ts` (10) — ida y vuelta, clave errónea, clave ausente, tag corrupto, formato inválido, `maskSecret`.
+- `tests/admin-emails.test.ts` (6) — case-insensitive, listas vacías / con blancos, `resolveRegisterRole`.
+- `tests/register-admin-emails.test.ts` (2) — registro con email en lista → `role='admin'` en BD; sin lista → `'user'`.
+- `tests/login-inactive.test.ts` (4) — `active=false` → null; activo → `{role:'user'}`; activo en lista con `'user'` → promueve a `'admin'` y persiste en BD; clave incorrecta → null.
+
+Los tests de Fase 1 (contratos API, creaciones, perfil) siguen pasando sin modificación.
+
+## Entrega
+
+- Informe completo en `ordenes/F2-1-datos-seguridad-informe.md` (212 líneas): esquema, funciones, semilla, tabla de verificación, lista de tests.
+- `ordenes/F2-1-datos-seguridad-informe.log` → `F2-1-datos-seguridad-informe.md` (registro de salida de la orden, estilo de las órdenes previas).
+- `.env.example` con los dos env vars nuevos (`SETTINGS_ENCRYPTION_KEY`, `ADMIN_EMAILS`).
+- `package.json` → script `db:seed` (con `tsx` como devDep).
+
+**Sin cambios** a `src/app/api/creations/**`, `src/app/crear/**`, `src/app/panel/**`, `src/lib/engine/*` — la lógica de creaciones y la UI de la Fase 1 se conservan intactas (verificado por build + tests de contrato).
+exit=0

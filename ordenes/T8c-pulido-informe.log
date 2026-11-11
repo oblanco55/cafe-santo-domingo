@@ -1,0 +1,8 @@
+T8c ejecutado — informe (orden: máx. 5 líneas):
+
+1. COUNTRIES reordenado alfabéticamente por nombre en español en `src/lib/contracts/catalogs.ts` (Alemania ahora primero; los códigos ISO no cambiaron).
+2. Placeholder corregido a "Describe tu producto/servicio con detalle…" en `CreationForm.tsx`, dinámico según producto/servicio (coincide con la etiqueta del campo).
+3. `npx tsc --noEmit`: OK. `npm test`: 107/107 pasando.
+4. `npm run build`: OK. `npm run test:e2e`: 10/10 pasando.
+5. Commit `3155879` "fix(T8c): orden de países y texto de ayuda" pushado a origin/main (sin .env).
+exit=0
