@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Field from "@/components/ui/Field";
 import Input from "@/components/ui/Input";
-import Logo from "@/components/ui/Logo";
+import CafeSantoDomingoLogo from "@/components/ui/CafeSantoDomingoLogo";
 
 type FieldErrors = Record<string, string>;
 type ApiError = { error?: { message?: string; fieldErrors?: FieldErrors } };
@@ -83,7 +83,7 @@ export default function RegistroPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-4 py-10">
-      <Logo height={36} priority className="h-auto w-auto" />
+      <CafeSantoDomingoLogo size="sm" />
       <Card className="mt-8 w-full max-w-md p-6 sm:p-8">
         <h1 className="text-center text-2xl font-bold tracking-widest text-white">
           Crear cuenta

@@ -6,6 +6,6 @@ describe('smoke', () => {
   });
 
   it('el proyecto tiene un nombre', () => {
-    expect('script28').toBe('script28');
+    expect('cafe-santo-domingo').toBe('cafe-santo-domingo');
   });
 });

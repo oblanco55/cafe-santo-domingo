@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../src/generated/prisma/client';
 
@@ -19,7 +20,7 @@ const TERMINOS: { title: string; content: string } = {
 
 > Texto provisional pendiente de aprobación legal.
 
-SCRIPT 28 es una plataforma que acompaña a creadores de contenido en la
+Café Santo Domingo es una plataforma que acompaña a creadores de contenido en la
 estructuración de guiones para videos, fotografías y carruseles. El servicio
 funciona como una guía paso a paso: tú aportas las ideas y el contexto de tu
 negocio, y la aplicación te ayuda a ordenarlas en una estructura clara y
@@ -43,7 +44,7 @@ const PRIVACIDAD: { title: string; content: string } = {
 
 > Texto provisional pendiente de aprobación legal.
 
-En SCRIPT 28 tomamos la privacidad en serio. Esta página explica qué datos
+En Café Santo Domingo tomamos la privacidad en serio. Esta página explica qué datos
 recopilamos cuando usas la plataforma y con qué finalidad, de forma breve y
 directa.
 

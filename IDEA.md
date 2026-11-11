@@ -1,14 +1,14 @@
-PROYECTO: SCRIPT 28
+PROYECTO: Café Santo Domingo
 
 Integración y desarrollo de los módulos de contenido con IA
 
-Actúa como coordinador técnico del proyecto SCRIPT 28 y utiliza los perfiles especializados disponibles para ejecutar el trabajo.
+Actúa como coordinador técnico del proyecto Café Santo Domingo y utiliza los perfiles especializados disponibles para ejecutar el trabajo.
 
 DOCUMENTACIÓN DE REFERENCIA
 
 Debes estudiar y utilizar como requisitos funcionales:
 
-* La imagen de referencia del flujo completo de SCRIPT 28.
+* La imagen de referencia del flujo completo de Café Santo Domingo.
 * La especificación funcional del módulo de fotografía estática.
 * La especificación funcional del módulo de fotografía y carrusel.
 

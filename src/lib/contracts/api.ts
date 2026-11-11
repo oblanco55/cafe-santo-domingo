@@ -17,10 +17,13 @@ export type CreateCreationResponse =
 export type ApiErrorCode =
   | 'VALIDATION'
   | 'UNAUTHORIZED'
+  | 'UNAUTHENTICATED'
   | 'FORBIDDEN'
   | 'AI_FAILED'
   | 'RATE_LIMIT'
   | 'PAYMENT_REQUIRED'
+  | 'CAMPAIGN_ENDED'
+  | 'LIMIT_REACHED'
   | 'INTERNAL';
 
 export interface ApiError {

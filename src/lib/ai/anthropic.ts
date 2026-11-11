@@ -3,7 +3,7 @@ import type { Message, Tool as AnthropicTool } from '@anthropic-ai/sdk/resources
 import { AIError } from './errors';
 import type { AIProvider, GenerateArgs, GenerateResult } from './provider';
 
-const DEFAULT_MODEL = 'claude-sonnet-5-5';
+const DEFAULT_MODEL = 'claude-sonnet-5';
 const TIMEOUT_MS = 60_000;
 const MAX_RETRIES = 1;
 

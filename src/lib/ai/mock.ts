@@ -1,5 +1,5 @@
 /**
- * Proveedor Mock para SCRIPT 28 y Campaña Café Santo Domingo.
+ * Proveedor Mock para Café Santo Domingo.
  * - Soporta guiones tradicionales (video, foto, carrusel).
  * - Soporta la generación de Avatar 3D y Video para Café Santo Domingo
  *   (ideal para desarrollo y pruebas gratuitas sin consumir saldo en Fal.ai o Replicate).
@@ -141,6 +141,8 @@ function photoOutput(input: Record<string, unknown>) {
         : 'Mantén el sujeto dentro del cuadro central.',
       verification: [
         'Revisa que la taza y el logo se vean claros y atractivos.',
+        'Comprueba que no haya reflejos ni sombras duras sobre el producto.',
+        'Confirma que el encuadre respete la proporción elegida antes de publicar.',
       ],
     },
   };
@@ -175,6 +177,7 @@ function carouselOutput(input: Record<string, unknown>) {
 
 function videoOutput(input: Record<string, unknown>) {
   const duration = durationOf(input);
+  const mid = Math.round((3 + (duration - 3)) / 2);
   const b = base('video', input, '9:16');
 
   return {
@@ -190,7 +193,7 @@ function videoOutput(input: Record<string, unknown>) {
       },
       {
         index: 2,
-        time_range: `3–${duration - 3} s`,
+        time_range: `3–${mid} s`,
         shot: 'Plano medio de la persona sonriendo y disfrutando el café.',
         action: 'Sostiene la taza y saluda a la cámara con calidez.',
         narration: 'Porque el buen café no se toma solo, se vive.',
@@ -198,6 +201,14 @@ function videoOutput(input: Record<string, unknown>) {
       },
       {
         index: 3,
+        time_range: `${mid}–${duration - 3} s`,
+        shot: 'Plano amplio compartiendo la taza con familia o amigos.',
+        action: 'Levanta la taza en un gesto de brindis compartido.',
+        narration: 'El café que se comparte sabe mejor entre los nuestros.',
+        on_screen_text: 'Hecho para Compartir',
+      },
+      {
+        index: 4,
         time_range: `${duration - 3}–${duration} s`,
         shot: 'Cierre con el logo de Café Santo Domingo y la taza humeante.',
         action: 'Un brindis con la taza hacia la cámara.',

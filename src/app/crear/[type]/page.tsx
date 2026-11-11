@@ -18,15 +18,15 @@ type Slug = keyof typeof SLUG_TO_TYPE;
 
 const META: Record<CreationType, { title: string; description: string }> = {
   video: {
-    title: "Crear contenido — Guion de video | SCRIPT 28",
+    title: "Crear contenido — Guion de video | Café Santo Domingo",
     description: "Genera un guion de video por escenas para tu producto o servicio. Rellena el formulario y la IA crea tu guion optimizado para tu plataforma.",
   },
   photo: {
-    title: "Crear contenido — Fotografía estática | SCRIPT 28",
+    title: "Crear contenido — Fotografía estática | Café Santo Domingo",
     description: "Describe tu producto o servicio y la IA creará una guía fotográfica completa para una sola imagen: composición, iluminación, fondo y copy.",
   },
   carousel: {
-    title: "Crear contenido — Carrusel | SCRIPT 28",
+    title: "Crear contenido — Carrusel | Café Santo Domingo",
     description: "Define tu contenido y elige 3, 5 o 7 láminas: la IA creará una guía fotográfica por lámina con structure narrativa y copy final.",
   },
 };
@@ -48,7 +48,7 @@ export async function generateMetadata(props: { params: Promise<{ type: string }
   const { type: typeParam } = await props.params;
   const type = resolveType(typeParam);
   if (!type) {
-    return { title: "Crear contenido | SCRIPT 28" };
+    return { title: "Crear contenido | Café Santo Domingo" };
   }
   return { title: META[type].title, description: META[type].description };
 }

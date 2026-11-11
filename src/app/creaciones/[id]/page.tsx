@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import SiteHeader from "@/components/ui/SiteHeader";
 import CreationItemClient from "@/components/creation/CreationItemClient";
 
-export const metadata = { title: "Creación — Script 28" };
+export const metadata = { title: "Creación — Café Santo Domingo" };
 
 export default async function CreationItemPage({
   params,

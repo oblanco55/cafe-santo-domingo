@@ -1,5 +1,5 @@
 /**
- * Utilidades PURAS de SCRIPT 28 para convertir la salida de la IA en texto
+ * Utilidades PURAS de Café Santo Domingo para convertir la salida de la IA en texto
  * plano copiable. Sin React ni estado: solo tipado y transformación.
  *
  * Dos funciones principales:

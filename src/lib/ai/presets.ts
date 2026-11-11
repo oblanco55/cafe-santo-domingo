@@ -1,5 +1,5 @@
 /**
- * Presets de proveedores de IA para SCRIPT 28 (ORDEN F2-2 punto 1).
+ * Presets de proveedores de IA para Café Santo Domingo (ORDEN F2-2 punto 1).
  *
  * Cada preset describe un proveedor del mercado:
  *  - `anthropic` (nativo) → AnthropicProvider.

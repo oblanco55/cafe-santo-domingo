@@ -1,4 +1,4 @@
-# Script 28
+# Café Santo Domingo
 
 De ideas a contenido. Plataforma web construida con Next.js, Prisma y PostgreSQL.
 

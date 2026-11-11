@@ -1,4 +1,4 @@
-# SCRIPT 28 — Fase 2: administración, IA configurable, valor para el usuario y monetización
+# Café Santo Domingo — Fase 2: administración, IA configurable, valor para el usuario y monetización
 
 Aprobado por el usuario el 2026-10-23 (amplía el alcance del MVP; los pagos estaban fuera de alcance en las especificaciones y ahora se incluyen por decisión del usuario).
 Roles: Claude dirige y verifica; Hermes implementa. Reglas de órdenes: ver memoria de Hermes (órdenes cortas, hechos verificados, verificación automática por paso).

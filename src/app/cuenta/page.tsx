@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import SiteHeader from "@/components/ui/SiteHeader";
 import CuentaView from "@/components/billing/CuentaView";
 
-export const metadata: Metadata = { title: "Mi cuenta — Script 28" };
+export const metadata: Metadata = { title: "Mi cuenta — Café Santo Domingo" };
 
 export default async function CuentaPage() {
   const session = await auth();

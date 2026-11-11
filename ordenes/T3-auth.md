@@ -1,5 +1,5 @@
 # ORDEN T3 — Autenticación (perfil: autenticaci-n-y-gesti-n-de-usuarios)
-Ordena: Claude (cerebro). Ejecuta: Hermes. Lee PLAN.md y src/lib/contracts (T2). Directorio: /Users/omar/Desktop/Claude/Script 28. No toques IA ni formularios de creación.
+Ordena: Claude (cerebro). Ejecuta: Hermes. Lee PLAN.md y src/lib/contracts (T2). Directorio: /Users/omar/Desktop/Claude/cafe-santo-domingo. No toques IA ni formularios de creación.
 
 1. Auth.js v5 (next-auth@beta) en src/auth.ts: provider Credentials (email+contraseña), verificación con bcryptjs contra User.passwordHash vía Prisma (src/lib/db.ts), estrategia de sesión JWT (cookie httpOnly, secure en producción), callbacks que pongan user.id y name en la sesión. Ruta src/app/api/auth/[...nextauth]/route.ts. Usa AUTH_SECRET del entorno; trustHost: true (Railway está detrás de proxy).
 2. src/lib/contracts/auth.ts (zod): registerSchema { name 2–80, email válido normalizado a minúsculas, password 8–72 con al menos una letra y un número, acceptTerms literal true } y loginSchema. Mensajes en español.

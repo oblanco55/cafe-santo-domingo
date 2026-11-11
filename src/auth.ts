@@ -5,7 +5,7 @@ import { db } from '@/lib/db';
 import { isAdminEmail } from '@/lib/admin-emails';
 
 /**
- * Configuración de Auth.js (NextAuth v5) para SCRIPT 28.
+ * Configuración de Auth.js (NextAuth v5) para Café Santo Domingo.
  * - Provider de credenciales (email + contraseña) verificado contra User.passwordHash.
  * - Sesión JWT en cookie httpOnly (secure en producción por defecto de Auth.js).
  * - Los callbacks exponen user.id y user.name en la sesión.

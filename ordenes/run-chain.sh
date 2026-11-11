@@ -2,7 +2,7 @@
 # Ejecuta órdenes de Hermes en cadena con verificación automática por paso.
 # Uso: ordenes/run-chain.sh <marca> <perfil:orden[:archivo-requerido]> ...
 # Escribe el resultado final en ordenes/<marca>.status (OK o FALLO ...).
-cd "/Users/omar/Desktop/Claude/Script 28" || exit 1
+cd "/Users/omar/Desktop/Claude/cafe-santo-domingo" || exit 1
 mark="$1"; shift
 statusfile="ordenes/${mark}.status"
 for step in "$@"; do

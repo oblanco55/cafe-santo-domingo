@@ -4,7 +4,7 @@
  * - Se purga la ventana vencida para no acumular memoria.
  *
  * NOTA: en memoria → se reinicia con cada worker/reinicio. Suficiente para el
- * alcance de SCRIPT 28 (orden T3a punto 3); si se escala a producción con
+ * alcance de Café Santo Domingo (orden T3a punto 3); si se escala a producción con
  * múltiples instancias, sustituir por un store compartido.
  */
 const WINDOW_MS = 10 * 60 * 1000; // 10 minutos

@@ -1,5 +1,5 @@
 /**
- * Ampliación de tipos de Auth.js (NextAuth v5) para SCRIPT 28:
+ * Ampliación de tipos de Auth.js (NextAuth v5) para Café Santo Domingo:
  * añade user.id a Session y Token.
  */
 import 'next-auth';

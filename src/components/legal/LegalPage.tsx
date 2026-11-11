@@ -78,8 +78,8 @@ export async function generateMetadata({
   try {
     const doc = await getLegalDocument(slug);
     const title = doc.title || "Documento legal";
-    return { title, description: `${title} — SCRIPT 28` };
+    return { title, description: `${title} — Café Santo Domingo` };
   } catch {
-    return { title: "Documento legal — SCRIPT 28" };
+    return { title: "Documento legal — Café Santo Domingo" };
   }
 }

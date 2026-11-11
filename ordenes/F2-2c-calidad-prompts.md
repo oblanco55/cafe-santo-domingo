@@ -1,7 +1,7 @@
 # ORDEN F2-2c — Calidad de los prompts para la IA real (perfil: especializado-en-inteligencia-artificial)
 Breve; un archivo por llamada; informe máx. 10 líneas. Si un paso falla 2 veces, DETENTE. No cambies los esquemas de salida (src/lib/contracts/outputs.ts) ni la API.
 HECHOS VERIFICADOS POR CLAUDE: prompts en src/lib/ai/prompts/{common,photo,carousel,video}.ts (110 líneas en total); engine.ts construye el mensaje con `wrapUserData(input)` (línea ~241) enviando el input con CÓDIGOS (countryIso "DO", sector "servicios_profesionales", photoStyle "ia_recomienda", objective "promocion", resources [...]). Catálogos con etiquetas en src/lib/contracts/catalogs.ts.
-Revisión de Claude contra las especificaciones (Script28_Modulo_Fotografia_*.docx) — corrige estas carencias:
+Revisión de Claude contra las especificaciones (CafeSantoDomingo_Modulo_Fotografia_*.docx) — corrige estas carencias:
 
 1. Entrada legible: crea src/lib/ai/humanize.ts → humanizeInput(type, input) que devuelve un objeto con etiquetas en español: pais ("República Dominicana"), que_promociona ("Producto"/"Servicio"), sector (etiqueta; si "otro" usa sectorOther), descripcion, plataforma ("Instagram"…), objetivo (etiqueta), equipo (etiqueta o "No indicado"), recursos (etiquetas o "Ninguno indicado"), y los específicos (formato "Cuadrada 1:1 (1080×1080)" / "Vertical Story 9:16 (1080×1920)", tipo_de_foto, numero_de_laminas, estructura, duracion "30 segundos"). Si un valor es "ia_recomienda" → "Elige tú la mejor opción y justifícala". engine.ts: wrapUserData(humanizeInput(type, input)) — el input ORIGINAL se sigue guardando igual.
 2. common.ts — añade:

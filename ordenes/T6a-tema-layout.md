@@ -1,7 +1,7 @@
 # ORDEN T6a — Tema, tipografía, layout y componentes base (perfil: desarrollador-frontend)
 LEE PRIMERO docs/DISENO.md (obligatorio; es la fuente de verdad visual). REGLAS: breve, un archivo por llamada. NO toques src/app/api, src/lib, src/auth.ts, middleware. Si un paso falla 2 veces, DETENTE.
 1. src/app/globals.css: reemplázalo por el bloque exacto de DISENO.md §2 (@theme con los tokens; sin variables --background ni prefers-color-scheme).
-2. src/app/layout.tsx: <html lang="es">; Plus Jakarta Sans con next/font/google (variable --font-jakarta, pesos 400–800) en lugar de Geist; metadata title "Script 28 — De ideas a contenido", description "Guiones de video, guías de fotografía y carruseles para redes sociales con IA.".
+2. src/app/layout.tsx: <html lang="es">; Plus Jakarta Sans con next/font/google (variable --font-jakarta, pesos 400–800) en lugar de Geist; metadata title "Café Santo Domingo — De ideas a contenido", description "Guiones de video, guías de fotografía y carruseles para redes sociales con IA.".
 3. Crea src/components/ui/ con componentes reutilizables (client donde haga falta), siguiendo DISENO.md §4:
    - Button.tsx (variant 'primary' | 'secondary'; prop loading → texto "Procesando…" y disabled).
    - Card.tsx, Field.tsx (label + children + error con aria), Input.tsx, Textarea.tsx, Select.tsx (con aria-invalid / aria-describedby), Segmented.tsx (opciones tipo segmento con aria-pressed; props: options {value,label}[], value, onChange, name).

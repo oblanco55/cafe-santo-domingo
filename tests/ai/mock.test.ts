@@ -1,5 +1,5 @@
 /**
- * Tests del proveedor mock de SCRIPT 28 (ORDEN T4a).
+ * Tests del proveedor mock de Café Santo Domingo (ORDEN T4a).
  * Valida que `buildMockOutput` produzca salidas válidas para los tres
  * esquemas de salida:
  *  - photo (1:1 y 9:16) contra `photoOutputSchema`

@@ -67,6 +67,14 @@ export async function POST(
     return jsonError(404, 'VALIDATION', 'Creación no encontrada.');
   }
 
+  if (creation.type === 'avatar') {
+    return jsonError(
+      400,
+      'VALIDATION',
+      'Los avatares de campaña no se regeneran desde aquí: crea uno nuevo en la página de la campaña.',
+    );
+  }
+
   const rl = checkRateLimit(`creations:${userId}`, Date.now());
   if (!rl.allowed) {
     return jsonError(429, 'RATE_LIMIT', 'Has alcanzado el límite temporal. Intenta en unos minutos.');

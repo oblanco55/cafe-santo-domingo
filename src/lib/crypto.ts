@@ -5,7 +5,7 @@ import {
 } from 'node:crypto';
 
 /**
- * Cifrado de secretos para SCRIPT 28 (Fase 2).
+ * Cifrado de secretos para Café Santo Domingo (Fase 2).
  *
  * AES-256-GCM con clave base64 de 32 bytes leída de SETTINGS_ENCRYPTION_KEY.
  * Formato de salida: "v1:<iv b64>:<tag b64>:<data b64>" (v1 = versión 1 del formato).

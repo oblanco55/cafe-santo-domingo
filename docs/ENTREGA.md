@@ -1,4 +1,4 @@
-# SCRIPT 28 — Entrega (Fase 8)
+# Café Santo Domingo — Entrega (Fase 8)
 
 Fecha: 2026-10-23 · Repositorio: `github.com/oblanco55/script28` (privado, rama `main`) · Producción: https://web-production-38743.up.railway.app
 Roles: **Claude** (auditoría, arquitectura, órdenes, verificación) · **Hermes** (`qwen3.8:27b` en la ZimaBoard, escribió el código). Todas las órdenes e informes están en `ordenes/`.

@@ -1,4 +1,4 @@
-# Guía: credenciales de IA y PayPal para Script 28
+# Guía: credenciales de IA y PayPal para Café Santo Domingo
 
 Estas claves las pegas **tú** en el panel de administración (`/admin`). Se guardan cifradas y el panel nunca vuelve a mostrarlas completas. No las envíes por chat ni por correo.
 
@@ -10,10 +10,10 @@ Antes de empezar: inicia sesión en https://web-production-38743.up.railway.app 
 
 1. Entra en https://console.anthropic.com e inicia sesión (o crea la cuenta de la empresa).
 2. **Billing**: añade un método de pago y un saldo inicial (las generaciones se cobran por uso).
-3. **API Keys → Create Key**. Nómbrala `script28-produccion` y cópiala (empieza por `sk-ant-…`; solo se muestra una vez).
-4. En Script 28: **/admin → IA → Añadir proveedor**:
+3. **API Keys → Create Key**. Nómbrala `cafesantodomingo-produccion` y cópiala (empieza por `sk-ant-…`; solo se muestra una vez).
+4. En Café Santo Domingo: **/admin → IA → Añadir proveedor**:
    - Proveedor: **Anthropic (Claude)**.
-   - Modelo: deja el sugerido (`claude-sonnet-5-5`).
+   - Modelo: deja el sugerido (`claude-sonnet-5`).
    - Clave: pega la clave.
    - Marca **Activo** y **Por defecto**.
 5. Pulsa **Probar conexión** → debe responder "OK" con la latencia.
@@ -29,7 +29,7 @@ Con sandbox **no se mueve dinero real**: PayPal crea cuentas ficticias de compra
 
 1. Entra en https://developer.paypal.com con la cuenta PayPal **Business** de la empresa.
 2. **Apps & Credentials** → asegúrate de que arriba está seleccionado **Sandbox**.
-3. **Create App** → nombre `Script 28`, tipo **Merchant**. Copia el **Client ID** y el **Secret**.
+3. **Create App** → nombre `Café Santo Domingo`, tipo **Merchant**. Copia el **Client ID** y el **Secret**.
 4. **Testing Tools → Sandbox Accounts**: verás una cuenta *Personal* (comprador de prueba). Anota su correo y contraseña de prueba para simular compras.
 5. Cuando exista la sección **/admin → Monetización** (tarea F2-7):
    - Modo: **Sandbox**.

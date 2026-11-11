@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
-import Logo from "./Logo";
+import CafeSantoDomingoLogo from "./CafeSantoDomingoLogo";
 
 async function handleSignOut() {
   "use server";
@@ -23,8 +23,8 @@ export default async function SiteHeader({ wide = false }: { wide?: boolean } = 
     <header className="border-b border-mist/15">
       <div className={`mx-auto flex min-h-[60px] ${width} items-center justify-between gap-4 px-4 py-3`}>
         <div className="flex items-center gap-4">
-          <Link href="/" aria-label="Script 28 — inicio" className="shrink-0">
-            <Logo height={32} className="h-auto w-auto sm:h-8" />
+          <Link href="/" aria-label="Café Santo Domingo — inicio" className="shrink-0">
+            <CafeSantoDomingoLogo size="sm" />
           </Link>
           {session?.user?.role === "admin" && (
             <Link

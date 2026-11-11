@@ -1,6 +1,6 @@
 # ORDEN T1b — Continuación de T1 (perfil: devops-y-despliegue)
 Tu ejecución anterior de T1 se cortó por límite de tokens. Sé conciso: actúa con herramientas, no escribas explicaciones largas.
-Lee ordenes/T1-scaffolding.md (la orden completa). Directorio: /Users/omar/Desktop/Claude/Script 28.
+Lee ordenes/T1-scaffolding.md (la orden completa). Directorio: /Users/omar/Desktop/Claude/cafe-santo-domingo.
 
 YA HECHO (no repetir): Next.js 15 en la raíz con src/, Tailwind, ESLint; dependencias instaladas (prisma 7, @prisma/client 7, zod 4, next-auth beta, bcryptjs, @anthropic-ai/sdk, vitest, playwright). Docker ya está encendido.
 
@@ -12,7 +12,7 @@ FALTA (hazlo en este orden):
 5. vitest.config.ts, playwright.config.ts, tests/smoke.test.ts (punto 6).
 6. Scripts db:up, db:migrate, y "db:deploy": "prisma migrate deploy" (lo usará Railway).
 7. README.md: reemplaza el texto de create-next-app por los pasos reales en español (punto 8).
-8. src/app/page.tsx placeholder "SCRIPT 28" y borra los svg de ejemplo de public/ que no se usen.
+8. src/app/page.tsx placeholder "Café Santo Domingo" y borra los svg de ejemplo de public/ que no se usen.
 
 Verifica y pega salidas reales resumidas: npm run lint, npx tsc --noEmit, npm test, npm run build, npx prisma migrate status.
 Luego: git add -A (comprueba antes con git status que .env NO aparece), commit "feat(T1): scaffolding Next.js, Prisma, Docker, tooling" y git push origin main.

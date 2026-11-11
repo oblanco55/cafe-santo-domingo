@@ -1,6 +1,6 @@
 # ORDEN T4 — Motor de IA (perfil: especializado-en-inteligencia-artificial)
 Ordena: Claude. Ejecuta: Hermes. Sé conciso: usa herramientas, informe final máx. 30 líneas.
-Directorio: /Users/omar/Desktop/Claude/Script 28. Lee PLAN.md, src/lib/contracts/* (T2) y las dos especificaciones (textutil -convert txt -stdout <archivo>.docx). zod es v4. No toques UI ni auth.
+Directorio: /Users/omar/Desktop/Claude/cafe-santo-domingo. Lee PLAN.md, src/lib/contracts/* (T2) y las dos especificaciones (textutil -convert txt -stdout <archivo>.docx). zod es v4. No toques UI ni auth.
 
 Crea src/lib/ai/:
 

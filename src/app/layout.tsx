@@ -9,7 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Script 28 — De ideas a contenido",
+  title: "Café Santo Domingo — De ideas a contenido",
   description:
     "Guiones de video, guías de fotografía y carruseles para redes sociales con IA.",
 };

@@ -1,4 +1,4 @@
-# SCRIPT 28 — Entrega Fase 2
+# Café Santo Domingo — Entrega Fase 2
 
 Complementa `docs/ENTREGA.md` (Fase 1). Estado a 2026-10-23. Producción: https://web-production-38743.up.railway.app
 

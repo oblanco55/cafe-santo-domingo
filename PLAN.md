@@ -1,4 +1,4 @@
-# SCRIPT 28 — Diagnóstico técnico y plan de ejecución
+# Café Santo Domingo — Diagnóstico técnico y plan de ejecución
 
 Roles: **Claude = cerebro** (auditoría, arquitectura, contratos, órdenes, revisión, validación). **Hermes = desarrollador** (escribe todo el código siguiendo las órdenes). Fecha: 2026-10-22.
 

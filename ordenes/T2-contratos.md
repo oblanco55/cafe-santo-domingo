@@ -1,7 +1,7 @@
 # ORDEN T2 — Contratos y esquemas zod (perfil: arquitecto)
 Ordena: Claude (cerebro). Ejecuta: Hermes. Lee PLAN.md, IDEA.md y las dos especificaciones (usa `textutil -convert txt -stdout <archivo>.docx` para leerlas).
 NOTA: zod instalado es v4 (API v4: z.email(), error en lugar de message/errorMap, etc.). Sé conciso: usa herramientas, informe final máx. 30 líneas.
-Directorio: /Users/omar/Desktop/Claude/Script 28. No toques auth, UI ni IA (otras tareas). No borres archivos existentes.
+Directorio: /Users/omar/Desktop/Claude/cafe-santo-domingo. No toques auth, UI ni IA (otras tareas). No borres archivos existentes.
 
 Crea src/lib/contracts/ con código TypeScript + zod, sin lógica de negocio:
 

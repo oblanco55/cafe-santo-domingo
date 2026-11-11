@@ -1,5 +1,5 @@
 /**
- * Catálogos de SCRIPT 28: valores válidos y sus etiquetas para mostrar
+ * Catálogos de Café Santo Domingo: valores válidos y sus etiquetas para mostrar
  * en la interfaz. Solo constantes y tipos — sin lógica de negocio.
  */
 

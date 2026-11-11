@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import SiteHeader from "@/components/ui/SiteHeader";
 import MisCreaciones from "@/components/creation/MisCreaciones";
 
-export const metadata = { title: "Mis creaciones — Script 28" };
+export const metadata = { title: "Mis creaciones — Café Santo Domingo" };
 
 export default async function CreacionesPage() {
   const session = await auth();

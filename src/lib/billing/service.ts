@@ -137,7 +137,7 @@ async function syncPlanWithPayPal(plan: {
   interval: 'month' | 'year';
   paypalProductId: string | null;
 }) {
-  const productId = plan.paypalProductId ?? (await createProduct(`Script 28 — ${plan.name}`)).id;
+  const productId = plan.paypalProductId ?? (await createProduct(`Café Santo Domingo — ${plan.name}`)).id;
   const billing = await createBillingPlan({
     productId,
     name: plan.name,
@@ -376,7 +376,7 @@ export async function createPackOrder(userId: string, packId: string) {
   const order = await createOrder({
     amountCents: pack.priceCents,
     currency: pack.currency,
-    description: `Script 28 — ${pack.name} (${pack.credits} créditos)`,
+    description: `Café Santo Domingo — ${pack.name} (${pack.credits} créditos)`,
     customId: `${userId}:${pack.id}`,
   });
   await db.payment.create({
@@ -505,7 +505,7 @@ export async function cancelUserSubscription(userId: string) {
     orderBy: { createdAt: 'desc' },
   });
   if (!sub) throw new BillingError('No tienes una suscripción activa.', 404);
-  await paypalCancel(sub.paypalSubscriptionId, 'Cancelada por el usuario desde Script 28');
+  await paypalCancel(sub.paypalSubscriptionId, 'Cancelada por el usuario desde Café Santo Domingo');
   return db.subscription.update({ where: { id: sub.id }, data: { status: 'CANCELLED' } });
 }
 

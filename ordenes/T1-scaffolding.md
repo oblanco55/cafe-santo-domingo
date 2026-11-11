@@ -1,11 +1,11 @@
 # ORDEN T1 — Scaffolding (perfil: devops-y-despliegue)
 Ordena: Claude (cerebro). Ejecuta: Hermes. Lee primero PLAN.md e IDEA.md en la raíz.
 
-Directorio de trabajo: /Users/omar/Desktop/Claude/Script 28 (repo git ya inicializado, remoto origin = github oblanco55/script28, rama main). NO borres ni muevas IDEA.md, PLAN.md, los .docx/.pdf, las imágenes ni la carpeta ordenes/.
+Directorio de trabajo: /Users/omar/Desktop/Claude/cafe-santo-domingo (repo git ya inicializado, remoto origin = github oblanco55/cafe-santo-domingo, rama main). NO borres ni muevas IDEA.md, PLAN.md, los .docx/.pdf, las imágenes ni la carpeta ordenes/.
 
 Construye en la RAÍZ del repo (no en subcarpeta):
 1. Proyecto Next.js 15 (App Router, carpeta src/, TypeScript strict, ESLint, Tailwind CSS, alias @/*). Gestor: npm. Si create-next-app no admite directorio no vacío, créalo en carpeta temporal y mueve los archivos a la raíz sin pisar los existentes.
-2. docker-compose.yml con PostgreSQL 16 (servicio "db", puerto host 5433, volumen nombrado, usuario/clave/BD "script28" solo para desarrollo local).
+2. docker-compose.yml con PostgreSQL 16 (servicio "db", puerto host 5433, volumen nombrado, usuario/clave/BD "cafesantodomingo" solo para desarrollo local).
 3. Prisma: dependencia prisma + @prisma/client; prisma/schema.prisma con los modelos exactos de PLAN.md §2 "Modelo de datos":
    - User: id cuid, name, email @unique, passwordHash, termsAcceptedAt DateTime, createdAt, relación 1-1 opcional BusinessProfile, 1-n Creation.
    - BusinessProfile: id, userId @unique, countryIso String?, offerType enum OfferType(product,service)?, sector String?, sectorOther String?, description String?, updatedAt.
@@ -16,7 +16,7 @@ Construye en la RAÍZ del repo (no en subcarpeta):
 6. Dependencias para fases siguientes (solo instalar): zod, next-auth@beta, bcryptjs, @anthropic-ai/sdk; dev: vitest, @vitejs/plugin-react, @playwright/test, @types/bcryptjs. Config mínima vitest.config.ts y playwright.config.ts (baseURL http://localhost:3000, proyectos chromium escritorio y móvil "Pixel 7").
 7. Scripts package.json: dev, build, start, lint, test (vitest run), test:e2e (playwright test), db:up (docker compose up -d db), db:migrate (prisma migrate dev).
 8. README.md breve: requisitos, pasos para arrancar (npm i, cp .env.example .env, npm run db:up, npm run db:migrate, npm run dev).
-9. Página src/app/page.tsx: un placeholder simple "SCRIPT 28" (la UI real es T6). No construyas auth, IA ni formularios: están fuera de T1.
+9. Página src/app/page.tsx: un placeholder simple "Café Santo Domingo" (la UI real es T6). No construyas auth, IA ni formularios: están fuera de T1.
 
 Verificación OBLIGATORIA antes de terminar (ejecuta y reporta salidas reales, no inventes):
 - npm run lint

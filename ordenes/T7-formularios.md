@@ -1,6 +1,6 @@
 # ORDEN T7 — Formularios contextuales (perfil: desarrollador-frontend)
 LEE docs/DISENO.md y los contratos src/lib/contracts (catalogs.ts, inputs.ts). Usa src/components/ui. REGLAS: breve, un archivo por llamada; no toques src/app/api ni src/lib. Si falla 2 veces, DETENTE.
-Especificación: Script28_Modulo_Fotografia_Estatica.docx §4 y Script28_Modulo_Fotografia_Carrusel.docx §4 (léelos con textutil -convert txt -stdout <archivo>).
+Especificación: CafeSantoDomingo_Modulo_Fotografia_Estatica.docx §4 y CafeSantoDomingo_Modulo_Fotografia_Carrusel.docx §4 (léelos con textutil -convert txt -stdout <archivo>).
 1. src/components/creation/CreationForm.tsx (client). Props: type 'video'|'photo'|'carousel', initialProfile (BusinessProfile|null), onSubmit(values) y estado submitting.
    Campos comunes, en este orden y con estas etiquetas:
    1 "¿En qué país resides?" Select COUNTRIES (obligatorio, precargado de initialProfile).

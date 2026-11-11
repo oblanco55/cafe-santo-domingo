@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import SiteHeader from "@/components/ui/SiteHeader";
 import PerfilClient from "@/components/profile/PerfilClient";
 
-export const metadata = { title: "Perfil del negocio — Script 28" };
+export const metadata = { title: "Perfil del negocio — Café Santo Domingo" };
 
 export default async function PerfilPage() {
   const session = await auth();

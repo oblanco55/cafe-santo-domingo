@@ -1,5 +1,5 @@
 /**
- * Selección y resolución de proveedores de IA para SCRIPT 28 y Campaña Café Santo Domingo.
+ * Selección y resolución de proveedores de IA para Café Santo Domingo.
  * - Soporta "mock" (desarrollo gratuito/local sin costo).
  * - Soporta "fal" (Fal.ai para Face Swap / Avatar 3D y Video).
  * - Soporta "replicate" (Replicate para Face Swap / InstantID).

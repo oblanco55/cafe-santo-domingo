@@ -107,7 +107,7 @@ describe('generateCreation', () => {
       expect(
         schemaResult(photoOutputSchema, r.output, { aspect_ratio: aspectRatio }),
       ).toBe(true);
-      expect(r.model).toBe('mock-1.0');
+      expect(r.model).toBe('mock-santo-domingo-v1');
     }
     // photo (9:16)
     const rPhoto = await generateCreation(

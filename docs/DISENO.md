@@ -1,4 +1,4 @@
-# SCRIPT 28 — Guía de diseño
+# Café Santo Domingo — Guía de diseño
 
 Fuente: skill de diseño aportada por el usuario (2026-10-23), corregida por Claude para respetar PLAN.md, la regla de roles y WCAG AA.
 **Roles:** Claude define y revisa; **Hermes implementa**. Esta guía es de obligado cumplimiento en las órdenes de UI (T6–T8). Cualquier cosa no cubierta aquí ni en PLAN.md/IDEA.md se consulta antes de asumirla.
@@ -56,7 +56,7 @@ Clase del degradado: `bg-gradient-to-r from-brand-orange via-brand-coral to-bran
 ## 3. Tipografía
 - **Plus Jakarta Sans** vía `next/font/google` (variable `--font-jakarta`), pesos 400/500/600/700/800. Reemplaza a Geist.
 - Titular landing: 800, `text-4xl` móvil → `text-6xl` escritorio, `tracking-tight`. "gran guion." con el degradado como texto (`bg-clip-text text-transparent`).
-- `<html lang="es">`. Metadata: title "Script 28 — De ideas a contenido", description en español.
+- `<html lang="es">`. Metadata: title "Café Santo Domingo — De ideas a contenido", description en español.
 
 ## 4. Componentes
 
@@ -80,11 +80,7 @@ Clase del degradado: `bg-gradient-to-r from-brand-orange via-brand-coral to-bran
 **Foco visible** en todos los elementos interactivos (`focus-visible:ring-2 ring-brand-orange`). Objetivos táctiles ≥ 44 px.
 
 ## 5. Logo e iconos
-Archivos oficiales (entregados por el usuario 2026-10-23; versiones transparentes generadas por Claude):
-- `public/brand/logo-script28.png` — logo completo, fondo transparente, 1454×354. **Usar este** en cabecera, landing y auth con `next/image` (`alt="Script 28"`, `priority` en la landing).
-- `public/brand/logo-script28@120h.png` — 120 px de alto, para cabeceras.
-- `public/brand/logo-script28-original.png` — original con fondo negro (solo referencia; no usar sobre la app).
-- `public/brand/icon-28.png` — "28" sobre `ink`, 512×512.
+- `src/components/ui/CafeSantoDomingoLogo.tsx` — logo oficial en SVG/texto (taza roja + "CAFÉ SANTO DOMINGO" en serif, degradado ámbar), prop `size` ('sm' | 'md' | 'lg'). **Usar este** en cabecera, landing y auth — reemplaza los antiguos PNG de marca.
 - `src/app/icon.png` (512) y `src/app/apple-icon.png` (180) — favicon/ícono iOS automáticos de Next. Se eliminó `favicon.ico` de la plantilla.
 - Tamaños: cabecera 28–32 px de alto en móvil, 36–40 px en escritorio; landing hero hasta 64 px. No deformar, no recolorear, no añadir sombras.
 - El logo de texto "SCRIPT **28**" hecho con CSS se reemplaza por la imagen.
