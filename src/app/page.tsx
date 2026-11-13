@@ -39,6 +39,7 @@ export default async function HomePage() {
           name: user.name,
           email: user.email,
           phone: user.customerLead?.phone,
+          age: user.customerLead?.age,
           favoriteProduct: user.customerLead?.favoriteProduct,
         };
       }

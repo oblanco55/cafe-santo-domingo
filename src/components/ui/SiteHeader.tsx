@@ -24,7 +24,7 @@ export default async function SiteHeader({ wide = false }: { wide?: boolean } = 
       <div className={`mx-auto flex min-h-[60px] ${width} items-center justify-between gap-4 px-4 py-3`}>
         <div className="flex items-center gap-4">
           <Link href="/" aria-label="Café Santo Domingo — inicio" className="shrink-0">
-            <CafeSantoDomingoLogo size="sm" />
+            <CafeSantoDomingoLogo size="sm" showTagline={false} />
           </Link>
           {session?.user?.role === "admin" && (
             <Link

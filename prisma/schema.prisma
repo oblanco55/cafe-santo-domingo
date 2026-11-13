@@ -55,6 +55,7 @@ model CustomerLead {
   id              String   @id @default(cuid())
   userId          String   @unique
   phone           String
+  age             Int?
   favoriteProduct String?
   marketingOptIn  Boolean  @default(true)
   createdAt       DateTime @default(now())

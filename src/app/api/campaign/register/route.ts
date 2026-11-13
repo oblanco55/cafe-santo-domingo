@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     name,
     email: rawEmail,
     phone,
+    age: rawAge,
     favoriteProduct,
     marketingOptIn = true,
     acceptTerms,
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
   const cleanName = typeof name === 'string' ? name.trim() : '';
   const cleanEmail = typeof rawEmail === 'string' ? rawEmail.trim().toLowerCase() : '';
   const cleanPhone = typeof phone === 'string' ? phone.trim() : '';
+  const cleanAge = typeof rawAge === 'number' ? rawAge : Number(rawAge);
   const cleanProduct = typeof favoriteProduct === 'string' ? favoriteProduct.trim() : 'Café Santo Domingo Tradicional';
 
   if (!cleanName || cleanName.length < 2) {
@@ -60,6 +62,10 @@ export async function POST(req: NextRequest) {
 
   if (!cleanPhone || cleanPhone.length < 7) {
     return jsonError(400, 'VALIDATION', 'Por favor ingresa un número de teléfono o WhatsApp válido.');
+  }
+
+  if (!Number.isInteger(cleanAge) || cleanAge < 1 || cleanAge > 120) {
+    return jsonError(400, 'VALIDATION', 'Por favor ingresa tu edad.');
   }
 
   if (acceptTerms !== true) {
@@ -93,11 +99,13 @@ export async function POST(req: NextRequest) {
       create: {
         userId: user.id,
         phone: cleanPhone,
+        age: cleanAge,
         favoriteProduct: cleanProduct,
         marketingOptIn: Boolean(marketingOptIn),
       },
       update: {
         phone: cleanPhone,
+        age: cleanAge,
         favoriteProduct: cleanProduct,
         marketingOptIn: Boolean(marketingOptIn),
       },
@@ -114,6 +122,7 @@ export async function POST(req: NextRequest) {
         customerLead: {
           create: {
             phone: cleanPhone,
+            age: cleanAge,
             favoriteProduct: cleanProduct,
             marketingOptIn: Boolean(marketingOptIn),
           },

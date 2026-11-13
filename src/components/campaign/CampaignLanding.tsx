@@ -40,6 +40,7 @@ interface InitialUser {
   name: string;
   email: string;
   phone?: string;
+  age?: number;
   favoriteProduct?: string;
 }
 
@@ -59,6 +60,7 @@ export default function CampaignLanding({
   const [name, setName] = useState(initialUser?.name || '');
   const [email, setEmail] = useState(initialUser?.email || '');
   const [phone, setPhone] = useState(initialUser?.phone || '');
+  const [age, setAge] = useState(initialUser?.age ? String(initialUser.age) : '');
   const [favoriteProduct, setFavoriteProduct] = useState(
     initialUser?.favoriteProduct || COFFEE_PRODUCTS[0],
   );
@@ -153,8 +155,13 @@ export default function CampaignLanding({
   // Enviar Paso 1 (Registro transparente)
   const handleSubmitStep1 = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone) {
+    if (!name || !email || !phone || !age) {
       setError('Por favor completa todos los campos requeridos.');
+      return;
+    }
+    const ageNumber = Number(age);
+    if (!Number.isInteger(ageNumber) || ageNumber < 1 || ageNumber > 120) {
+      setError('Por favor ingresa una edad válida.');
       return;
     }
     if (!acceptTerms) {
@@ -173,6 +180,7 @@ export default function CampaignLanding({
           name,
           email,
           phone,
+          age: ageNumber,
           favoriteProduct,
           marketingOptIn,
           acceptTerms,
@@ -256,7 +264,7 @@ export default function CampaignLanding({
       {/* Header oficial */}
       <header className="border-b border-amber-900/30 bg-[#1b0e09]/80 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3.5">
-          <CafeSantoDomingoLogo size="sm" />
+          <CafeSantoDomingoLogo size="sm" showTagline={false} />
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-block rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-1 text-xs font-semibold text-amber-300">
               ☕ Campaña Oficial 2026
@@ -296,7 +304,8 @@ export default function CampaignLanding({
           </h1>
           <p className="mt-3 text-sm sm:text-base text-amber-100/70 max-w-lg mx-auto">
             Regístrate en 30 segundos, tómate una selfie y la inteligencia artificial te
-            transformará en el embajador oficial del mejor café de nuestra tierra.
+            transformará en el embajador oficial del mejor café de nuestra tierra. ¡Sal en
+            foto junto a los mellizos oficiales de Café Santo Domingo!
           </p>
 
           {/* Stepper visual */}
@@ -394,6 +403,22 @@ export default function CampaignLanding({
 
               <div>
                 <label className="block text-xs font-semibold text-amber-200 uppercase tracking-wider mb-1.5">
+                  Edad *
+                </label>
+                <input
+                  type="number"
+                  required
+                  min={1}
+                  max={120}
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  placeholder="Ej. 32"
+                  className="w-full rounded-xl border border-amber-800/40 bg-[#120a06] px-4 py-3 text-sm text-white placeholder-amber-900 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-amber-200 uppercase tracking-wider mb-1.5">
                   ¿Cuál es tu Café Santo Domingo Favorito?
                 </label>
                 <select
@@ -466,8 +491,11 @@ export default function CampaignLanding({
                 Editar datos
               </button>
             </div>
-            <p className="text-xs sm:text-sm text-amber-200/70 mb-6">
+            <p className="text-xs sm:text-sm text-amber-200/70 mb-1">
               Participando como: <strong className="text-white">{name}</strong> ({favoriteProduct})
+            </p>
+            <p className="text-xs sm:text-sm text-amber-200/70 mb-6">
+              🫶 Los mellizos oficiales de Café Santo Domingo te esperan en tu foto.
             </p>
 
             {/* Selector de Foto: Cámara o Archivo */}
